@@ -34,5 +34,7 @@ jobs:
         run: |
           echo Add other actions to build,
           echo test, and deploy your project.
+      - name: PMD Source Code Analyzer Action
+        uses: sfdx-actions/setup-pmd@v1
       - name: run pmd
         run: pmd -d ./force-app/main/default/classes -R category/apex/design.xml -f text
