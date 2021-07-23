@@ -43,7 +43,7 @@ jobs:
         uses: GoldenspearLLC/build-jenkins-job@master
         with:
           jenkins-url: "http://ec2-52-3-254-93.compute-1.amazonaws.com:8080/"
-          jenkins-token: ${{ secrets.JENKINS_TOKEN }}
+          jenkins-token: ${{ secrets.JENKINSTOKEN }}
           user: "admin"
           job-path: "job/CICDPullRequestValidator/"
           #job-params: "{'param1': 'value1', 'param2': 'value2'}"
