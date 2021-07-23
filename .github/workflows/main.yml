@@ -38,13 +38,11 @@ jobs:
       #  uses: sfdx-actions/setup-pmd@v1
       #- name: run pmd
       #  run: pmd -d ./force-app/main/default/classes -R category/apex/design.xml -f text
-      - name: "Trigger jenkins job"
-        uses: GoldenspearLLC/build-jenkins-job@master
+      - name: trigger single Job
+        uses: appleboy/jenkins-action@master
         with:
-          jenkins-url: "http://ec2-52-3-254-93.compute-1.amazonaws.com:8080/"
-          jenkins-token: ${{ secrets.JENKINSTOKEN }}
+          url: "http://ec2-52-3-254-93.compute-1.amazonaws.com:8080/"
           user: "admin"
-          job-path: "CICDPullRequestValidator"
-          #job-params: "{'param1': 'value1', 'param2': 'value2'}"
-      - name: Get job status
-        run: echo "Job status is ${{ steps.job-build.outputs.job_status }}"
+          token: ${{ secrets.JENKINSTOKEN }}
+          job: "CICDPullRequestValidator"
+      
