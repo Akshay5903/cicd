@@ -38,7 +38,6 @@ jobs:
       #  uses: sfdx-actions/setup-pmd@v1
       #- name: run pmd
       #  run: pmd -d ./force-app/main/default/classes -R category/apex/design.xml -f text
-      
       - name: "Trigger jenkins job"
         uses: GoldenspearLLC/build-jenkins-job@master
         with:
