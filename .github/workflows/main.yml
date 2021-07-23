@@ -46,7 +46,7 @@ jobs:
           jenkins-token: ${{ secrets.JENKINS_TOKEN }}
           user: "admin"
           job-path: "job/CICDPullRequestValidator/"
-          job-params: "{'param1': 'value1', 'param2': 'value2'}"
+          #job-params: "{'param1': 'value1', 'param2': 'value2'}"
       - name: Get job status
         run: echo "Job status is ${{ steps.job-build.outputs.job_status }}"
       
