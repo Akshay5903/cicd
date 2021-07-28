@@ -48,13 +48,17 @@ jobs:
           
           echo "mydiff = "
           cat mydiff
-          echo 'Random sample text' > package.xml
+          echo '<?xml version="1.0" encoding="UTF-8"?>
+          <Package>
+          </Package>' > package.xml
           DIRDEPLOY=build/deploy
           if [ -d "$DIRDEPLOY" ]; then
               echo Removing deploy folder
               rm -rf "$DIRDEPLOY"
           fi
           mkdir -p $DIRDEPLOY
+          mkdir -p src
+          
           git diff --name-only origin/main..HEAD | \
           while read -r CFILE; do
 
