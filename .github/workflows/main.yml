@@ -119,7 +119,7 @@ jobs:
                           *.workflow*) TYPENAME="Workflow";;
                           *) TYPENAME="UNKNOWN TYPE";;
                   esac
-
+                  echo $CFILE
                   if [[ "$TYPENAME" != "UNKNOWN TYPE" ]]
                   then
 
