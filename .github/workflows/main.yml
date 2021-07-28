@@ -35,7 +35,7 @@ jobs:
       #    user: "admin"
       #    token: ${{ secrets.JENKINSTOKEN }}
       #    job: "CICDPullRequestValidator"
-          
+      - uses: sfdx-actions/setup-pmd@v1    
       - name: print-diff
         shell: bash
         run: |
@@ -186,9 +186,7 @@ jobs:
           ls -a
           cd pmdClass
           ls -a
-          - uses: sfdx-actions/setup-pmd@v1
-          - name: run-pmd
-            run: pmd -d ./force-app/main/default/classes -R category/apex/design.xml -f text
+          pmd -d /home/runner/work/cicd/cicd/pmdClass -R category/apex/design.xml -f text
           
           
 
