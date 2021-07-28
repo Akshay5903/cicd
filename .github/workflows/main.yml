@@ -48,16 +48,24 @@ jobs:
           
           echo "mydiff = "
           cat mydiff
+          mkdir -p src
+          echo changing directoy to src
+          cd src
           echo '<?xml version="1.0" encoding="UTF-8"?>
           <Package>
           </Package>' > package.xml
+          
+          cp package.xml{,.bak} &amp;amp;amp;&amp;amp;amp;
+          echo Backing up package.xml to package.xml.bak
+          NEWPKGXML=$(&amp;amp;lt;packageBase.xml) echo $NEWPKGXML &amp;amp;gt; package.xml
+          cd ..
           DIRDEPLOY=build/deploy
           if [ -d "$DIRDEPLOY" ]; then
               echo Removing deploy folder
               rm -rf "$DIRDEPLOY"
           fi
           mkdir -p $DIRDEPLOY
-          mkdir -p src
+          
           
           git diff --name-only origin/main..HEAD | \
           while read -r CFILE; do
@@ -148,7 +156,7 @@ jobs:
                                   ENTITY="${ENTITY%.*}"
                           fi
                           echo Akshay Code
-                          cd manifest
+                          cd src
                           if grep -Fq "&amp;amp;lt;name&amp;amp;gt;$TYPENAME&amp;amp;lt;/name&amp;amp;gt;" package.xml
                           then
                                   xmlstarlet ed -L -s "/Package/types[name='$TYPENAME']" -t elem -n members -v "$ENTITY" package.xml
