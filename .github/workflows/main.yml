@@ -153,6 +153,7 @@ jobs:
                                   xmlstarlet ed -L -s '/Package/types[not(*)]' -t elem -n name -v "$TYPENAME" package.xml
                                   xmlstarlet ed -L -s "/Package/types[name='$TYPENAME']" -t elem -n members -v "$ENTITY" package.xml
                           fi
+                          cat package.xm
                   fi
           done
           cd manifest
