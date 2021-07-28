@@ -43,14 +43,12 @@ jobs:
           #sudo apt-get install xmlstarlet
           #git fetch origin main
           #git diff --name-only origin/main..HEAD > mydiff
-          pwd
-          ls -a
-          cd ..
-          pwd
-          ls -a
-          cd ..
-          pwd
-          ls -a
+          DIRDEPLOY=build/deploy
+          if [ -d "$DIRDEPLOY" ]; then
+              echo Removing deploy folder
+              rm -rf "$DIRDEPLOY"
+          fi
+          mkdir -p $DIRDEPLOY
           
 
       
