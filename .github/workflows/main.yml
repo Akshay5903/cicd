@@ -150,6 +150,11 @@ jobs:
                           fi
                   fi
           done
+          pwd
+          echo Cleaning up Package.xml
+          xmlstarlet ed -L -i /Package -t attr -n xmlns -v "http://soap.sforce.com/2006/04/metadata" package.xml
+          echo ====FINAL PACKAGE.XML=====
+          cat package.xml
           cat package.xml
 
 
