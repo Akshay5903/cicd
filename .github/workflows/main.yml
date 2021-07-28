@@ -57,7 +57,8 @@ jobs:
           echo "mydiff = "
           cat mydiff
           echo changing Akshay1 
-          DIRDEPLOY=/home/runner/work
+          DIRDEPLOY=/build/deploy
+          mkdir -p $DIRDEPLOY
           echo changing Akshay2
           if [ -d "$DIRDEPLOY" ]; then
               echo Removing deploy folder
