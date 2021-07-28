@@ -55,9 +55,7 @@ jobs:
           <Package>
           </Package>' > package.xml
           
-          cp package.xml{,.bak} &amp;amp;amp;&amp;amp;amp;
-          echo Backing up package.xml to package.xml.bak
-          NEWPKGXML=$(&amp;amp;lt;packageBase.xml) echo $NEWPKGXML &amp;amp;gt; package.xml
+          
           cd ..
           DIRDEPLOY=build/deploy
           if [ -d "$DIRDEPLOY" ]; then
