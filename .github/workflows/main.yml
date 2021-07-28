@@ -46,4 +46,7 @@ jobs:
           user: "admin"
           token: ${{ secrets.JENKINSTOKEN }}
           job: "CICDPullRequestValidator"
+          
+      - name: branch name
+        run: echo ${BRANCH_NAME}
       
