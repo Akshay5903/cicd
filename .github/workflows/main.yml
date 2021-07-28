@@ -58,16 +58,19 @@ jobs:
 
                   if [[ $CFILE == *"src/"*"."* ]]
                   then
+                          echo if1
                           tar cf - "../$CFILE"* | (cd ../$DIRDEPLOY; tar xf -)
                   fi
                   if [[ $CFILE == *"-meta.xml" ]]
                   then
+                          echo if2
                           ADDFILE=$CFILE
                           ADDFILE="${ADDFILE%-meta.xml*}"
                           tar cf - ../$ADDFILE | (cd ../$DIRDEPLOY; tar xf -)
                   fi
                   if [[ $CFILE == *"/aura/"*"."* ]]
                   then
+                          echo if2
                           DIR=$(dirname "$CFILE")
                           tar cf - ../$DIR | (cd ../$DIRDEPLOY; tar xf -)
                   fi
