@@ -24,8 +24,8 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
-      #- uses: sfdx-actions/setup-pmd@v1
-      - uses: legetz/setup-pmd@v6.30
+      - uses: sfdx-actions/setup-pmd@v1
+      #- uses: legetz/setup-pmd@v6.30
       
       
         
@@ -196,7 +196,8 @@ jobs:
           
           ls -a
           cd /home/runner/work/cicd/cicd/pmd-bin-6.36.0/bin
-          pmd -language apex -dir /home/runner/work/cicd/cicd/pmdClass -R category/apex/design.xml -rulesets /home/runner/work/cicd/cicd/pmd-bin-6.36.0/lib/ruleset.xml -f text -reportfile /home/runner/work/cicd/cicd/pmdClass/report39.txt
+          pmd -d /home/runner/work/cicd/cicd/pmdClass -R category/apex/design.xml -f text -reportfile /home/runner/work/cicd/cicd/pmdClass/report39.txt
+          #pmd -language apex -dir /home/runner/work/cicd/cicd/pmdClass -R category/apex/design.xml -rulesets /home/runner/work/cicd/cicd/pmd-bin-6.36.0/lib/ruleset.xml -f text -reportfile /home/runner/work/cicd/cicd/pmdClass/report39.txt
           #pmd -d /home/runner/work/cicd/cicd/pmdClass -R category/apex/design.xml -f text -reportfile /home/runner/work/cicd/cicd/pmdClass/report39.txt
           #pmd -language apex -d /home/runner/work/cicd/cicd/pmdClass -f text -R /home/runner/work/cicd/cicd/pmd-bin-6.36.0/lib/ruleset.xml -reportfile /home/runner/work/cicd/cicd/pmdClass/report39.txt
           #sudo bash run.sh pmd -d /home/runner/work/cicd/cicd/pmdClass -f text -R /home/runner/work/cicd/cicd/pmd-bin-6.36.0/lib/ruleset.xml -reportfile /home/runner/work/cicd/cicd/pmdClass/report39.txt
