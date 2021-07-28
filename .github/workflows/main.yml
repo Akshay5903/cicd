@@ -168,7 +168,7 @@ jobs:
                           cat package.xml
                   fi
           done
-          cd manifest
+          cd src
           pwd
           echo Cleaning up Package.xml
           xmlstarlet ed -L -i /Package -t attr -n xmlns -v "http://soap.sforce.com/2006/04/metadata" package.xml
