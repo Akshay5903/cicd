@@ -84,7 +84,7 @@ jobs:
                           *.customApplicationComponent*) TYPENAME="CustomApplicationComponent";;
                           *.labels*) TYPENAME="CustomLabels";;
                           *.md*) TYPENAME="CustomMetadata";;
-                          */objects/*__*__c.object*) TYPENAME="UNKNOWN TYPE" # We don't want objects from managed packages to be deployed;;
+                          #*/objects/*__*__c.object*) TYPENAME="UNKNOWN TYPE" # We don't want objects from managed packages to be deployed;;
                           */objects*.object*) TYPENAME="CustomObject";;
                           *.objectTranslation*) TYPENAME="CustomObjectTranslation";;
                           *.weblink*) TYPENAME="CustomPageWebLink";;
