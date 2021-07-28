@@ -190,7 +190,7 @@ jobs:
           
           ls -a
           cd /home/runner/work/cicd/cicd/pmd-bin-6.36.0/bin
-          pmd -d /home/runner/work/cicd/cicd/pmdClass -f text -R "/home/runner/work/cicd/cicd/pmd-bin-6.36.0/lib/ruleset.xml" -reportfile /home/runner/work/cicd/cicd/pmdClass/report39.txt
+          sudo run.sh pmd -d /home/runner/work/cicd/cicd/pmdClass -f text -R "/home/runner/work/cicd/cicd/pmd-bin-6.36.0/lib/ruleset.xml" -reportfile /home/runner/work/cicd/cicd/pmdClass/report39.txt
           cat report39.txt
           
 
