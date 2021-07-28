@@ -195,8 +195,26 @@ jobs:
           
           ls -a
           cd /home/runner/work/cicd/cicd/pmd-bin-6.36.0/bin
-          
-          pmd -language apex -d /home/runner/work/cicd/cicd/pmdClass -f text -R /home/runner/work/cicd/cicd/pmd-bin-6.36.0/lib/ruleset.xml -reportfile /home/runner/work/cicd/cicd/pmdClass/report39.txt
+          - name: Run PMD Analyser
+            id: pmd-analysis
+            uses: synergy-au/pmd-analyser-action@v2
+            with:
+              pmd-version: '6.34.0'
+              file-path: '/home/runner/work/cicd/cicd/pmdClass'
+              rules-path: '/home/runner/work/cicd/cicd/pmd-bin-6.36.0/lib/ruleset.xml'
+              error-rules: 'AvoidDirectAccessTriggerMap,AvoidDmlStatementsInLoops,AvoidHardcodingId'
+              note-rules: 'ApexDoc'
+          - name: Upload results to GitHub
+            uses: github/codeql-action/upload-sarif@v1
+            with:
+              sarif_file: pmd-output.sarif
+          - name: No PMD Errors?
+            run: |
+              if ${{ steps.pmd-analysis.outputs.error-found }}
+              then
+                exit 3
+              fi
+          #pmd -language apex -d /home/runner/work/cicd/cicd/pmdClass -f text -R /home/runner/work/cicd/cicd/pmd-bin-6.36.0/lib/ruleset.xml -reportfile /home/runner/work/cicd/cicd/pmdClass/report39.txt
           #sudo bash run.sh pmd -d /home/runner/work/cicd/cicd/pmdClass -f text -R /home/runner/work/cicd/cicd/pmd-bin-6.36.0/lib/ruleset.xml -reportfile /home/runner/work/cicd/cicd/pmdClass/report39.txt
         
           
