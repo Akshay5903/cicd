@@ -39,6 +39,8 @@ jobs:
       - name: print-diff
         shell: bash
         run: |
+          pwd
+          ls -a
           sudo apt-get update
           sudo apt-get install xmlstarlet
           git fetch origin main
