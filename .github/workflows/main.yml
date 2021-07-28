@@ -18,17 +18,14 @@ jobs:
   # This workflow contains a single job called "build"
   build:
     # The type of runner that the job will run on
-    #runs-on: ubuntu-latest
+    runs-on: ubuntu-latest
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
       
-      - uses: egor-tensin/setup-cygwin@v3
-        with:
-          platform: x64
-          packages: cmake python3
+      
         
 
       
@@ -49,6 +46,7 @@ jobs:
           ls -a
           sudo apt-get update
           sudo apt-get install xmlstarlet
+          sudo apt-get install -y apex-pmd
           git fetch origin main
           git diff --name-only origin/main..HEAD > mydiff
           
