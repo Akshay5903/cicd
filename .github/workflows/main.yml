@@ -61,7 +61,7 @@ jobs:
           echo changing Akshay2
           if [ -d "$DIRDEPLOY" ]; then
               echo Removing deploy folder
-              rm -rf "$DIRDEPLOY"
+              #rm -rf "$DIRDEPLOY"
           fi
           mkdir -p $DIRDEPLOY
           cd src
