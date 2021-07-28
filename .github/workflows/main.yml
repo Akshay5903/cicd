@@ -186,8 +186,8 @@ jobs:
           ls -a
           cd pmdClass
           ls -a
-          pmd -d /home/runner/work/cicd/cicd/pmdClass -format text -R category/apex/design.xml > result56.txt
-          cat result56.txt
+          pmd -d /home/runner/work/cicd/cicd/pmdClass -format text -R category/apex/design.xml  -reportfile /home/runner/work/cicd/cicd/pmdClass/Result56.txt
+          cat Result56.txt
           ls -a
           
           
