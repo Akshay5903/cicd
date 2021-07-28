@@ -49,6 +49,9 @@ jobs:
               rm -rf "$DIRDEPLOY"
           fi
           mkdir -p $DIRDEPLOY
+          cp package.xml{,.bak} &amp;amp;amp;&amp;amp;amp;
+          echo Backing up package.xml to package.xml.bak
+          NEWPKGXML=$(&amp;amp;lt;packageBase.xml) echo $NEWPKGXML &amp;amp;gt; package.xml
           pwd
           ls -a
           
