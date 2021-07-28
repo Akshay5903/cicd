@@ -39,14 +39,19 @@ jobs:
       #- name: run pmd
       #  run: pmd -d ./force-app/main/default/classes -R category/apex/design.xml -f text
       
-      - name: trigger single Job
-        uses: appleboy/jenkins-action@master
-        with:
-          url: "http://ec2-52-3-254-93.compute-1.amazonaws.com:8080/"
-          user: "admin"
-          token: ${{ secrets.JENKINSTOKEN }}
-          job: "CICDPullRequestValidator"
+      #- name: trigger single Job
+      #  uses: appleboy/jenkins-action@master
+      #  with:
+      #    url: "http://ec2-52-3-254-93.compute-1.amazonaws.com:8080/"
+      #    user: "admin"
+      #    token: ${{ secrets.JENKINSTOKEN }}
+      #    job: "CICDPullRequestValidator"
           
-      - name: branch name
-        run: echo ${BRANCH_NAME}
+      - name: print-diff
+        shell: bash
+        run: |
+          git fetch origin main
+          git diff origin/main..HEAD > mydiff
+          echo "mydiff = "
+          cat mydiff
       
