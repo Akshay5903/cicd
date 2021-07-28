@@ -56,6 +56,18 @@ jobs:
           git diff --name-only origin/main..HEAD > mydiff
           echo "mydiff = "
           cat mydiff
+          DIRDEPLOY=build/deploy
+          if [ -d "$DIRDEPLOY" ]; then
+              echo Removing deploy folder
+              rm -rf "$DIRDEPLOY"
+          fi
+          mkdir -p $DIRDEPLOY
+          cd src
+          echo changing directoy to src
+          cp package.xml{,.bak} &amp;amp;amp;&amp;amp;amp;
+          echo Backing up package.xml to package.xml.bak
+
+          NEWPKGXML=$(&amp;amp;lt;packageBase.xml) echo $NEWPKGXML &amp;amp;gt; package.xml
           git diff --name-only origin/main..HEAD | \
             while read -r CFILE; do
 
