@@ -24,7 +24,8 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
-      - uses: sfdx-actions/setup-pmd@v1
+      #- uses: sfdx-actions/setup-pmd@v1
+      - uses: billyan2018/setup-pmd@PMDAnalyzer1.0
       
       
         
@@ -195,25 +196,7 @@ jobs:
           
           ls -a
           cd /home/runner/work/cicd/cicd/pmd-bin-6.36.0/bin
-          - name: Run PMD Analyser
-            id: pmd-analysis
-            uses: synergy-au/pmd-analyser-action@v2
-            with:
-              pmd-version: '6.34.0'
-              file-path: '/home/runner/work/cicd/cicd/pmdClass'
-              rules-path: '/home/runner/work/cicd/cicd/pmd-bin-6.36.0/lib/ruleset.xml'
-              error-rules: 'AvoidDirectAccessTriggerMap,AvoidDmlStatementsInLoops,AvoidHardcodingId'
-              note-rules: 'ApexDoc'
-          - name: Upload results to GitHub
-            uses: github/codeql-action/upload-sarif@v1
-            with:
-              sarif_file: pmd-output.sarif
-          - name: No PMD Errors?
-            run: |
-              if ${{ steps.pmd-analysis.outputs.error-found }}
-              then
-                exit 3
-              fi
+          pmd -d /home/runner/work/cicd/cicd/pmdClass -R category/apex/design.xml -f text -reportfile /home/runner/work/cicd/cicd/pmdClass/report39.txt
           #pmd -language apex -d /home/runner/work/cicd/cicd/pmdClass -f text -R /home/runner/work/cicd/cicd/pmd-bin-6.36.0/lib/ruleset.xml -reportfile /home/runner/work/cicd/cicd/pmdClass/report39.txt
           #sudo bash run.sh pmd -d /home/runner/work/cicd/cicd/pmdClass -f text -R /home/runner/work/cicd/cicd/pmd-bin-6.36.0/lib/ruleset.xml -reportfile /home/runner/work/cicd/cicd/pmdClass/report39.txt
         
