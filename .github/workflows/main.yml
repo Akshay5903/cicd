@@ -196,7 +196,7 @@ jobs:
           
           ls -a
           cd /home/runner/work/cicd/cicd/pmd-bin-6.36.0/bin
-          pmd -d /home/runner/work/cicd/cicd/pmdClass -R category/apex/design.xml -f text 
+          pmd -d /home/runner/work/cicd/cicd/pmdClass -R category/apex/design.xml -f text -reportfile /home/runner/work/cicd/cicd/pmdClass/report39.txt
           #pmd -language apex -dir /home/runner/work/cicd/cicd/pmdClass -R category/apex/design.xml -rulesets /home/runner/work/cicd/cicd/pmd-bin-6.36.0/lib/ruleset.xml -f text -reportfile /home/runner/work/cicd/cicd/pmdClass/report39.txt
           #pmd -d /home/runner/work/cicd/cicd/pmdClass -R category/apex/design.xml -f text -reportfile /home/runner/work/cicd/cicd/pmdClass/report39.txt
           #pmd -language apex -d /home/runner/work/cicd/cicd/pmdClass -f text -R /home/runner/work/cicd/cicd/pmd-bin-6.36.0/lib/ruleset.xml -reportfile /home/runner/work/cicd/cicd/pmdClass/report39.txt
