@@ -189,6 +189,8 @@ jobs:
           pmd -d /home/runner/work/cicd/cicd/pmdClass -format text -R category/apex/design.xml  -reportfile /home/runner/work/cicd/cicd/pmdClass/Result56.txt
           cat Result56.txt
           ls -a
+          java
+          javac
           
           
 
