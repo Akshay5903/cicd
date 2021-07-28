@@ -167,6 +167,7 @@ jobs:
                                   xmlstarlet ed -L -s "/Package/types[name='$TYPENAME']" -t elem -n members -v "$ENTITY" package.xml
                           fi
                           if [[ "$TYPENAME" == "ApexClass" ]]
+                          then
                                   echo copying class
                                   cp /home/runner/work/cicd/cicd/force-app/main/default/classes/"$ENTITY".cls /home/runner/work/cicd/cicd/pmdClass
                           fi
