@@ -39,7 +39,7 @@ jobs:
       #    user: "admin"
       #    token: ${{ secrets.JENKINSTOKEN }}
       #    job: "CICDPullRequestValidator"
-      - uses: sfdx-actions/setup-pmd@v1    
+         
       - name: print-diff
         shell: bash
         run: |
