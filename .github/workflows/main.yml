@@ -46,7 +46,7 @@ jobs:
           
           echo "mydiff = "
           cat mydiff
-          touch package.xml
+          echo 'Random sample text' > package.xml
           DIRDEPLOY=build/deploy
           if [ -d "$DIRDEPLOY" ]; then
               echo Removing deploy folder
