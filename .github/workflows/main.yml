@@ -44,10 +44,13 @@ jobs:
           #git fetch origin main
           #git diff --name-only origin/main..HEAD > mydiff
           pwd
-          ls -d -l
+          ls -a
           cd ..
-          ls -d -l
+          pwd
+          ls -a
           cd ..
-          ls -d -l
+          pwd
+          ls -a
+          
 
       
