@@ -49,6 +49,7 @@ jobs:
               rm -rf "$DIRDEPLOY"
           fi
           mkdir -p $DIRDEPLOY
+          pwd
           
 
       
