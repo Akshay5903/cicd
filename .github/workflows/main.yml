@@ -50,6 +50,7 @@ jobs:
           fi
           mkdir -p $DIRDEPLOY
           pwd
+          ls -a
           
 
       
