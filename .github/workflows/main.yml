@@ -181,7 +181,7 @@ jobs:
           xmlstarlet ed -L -i /Package -t attr -n xmlns -v "http://soap.sforce.com/2006/04/metadata" package.xml
           echo ====FINAL PACKAGE.XML=====
           cat package.xml
-          cd..
+          cd ..
           pwd
           ls -a
           cd pmdClass
