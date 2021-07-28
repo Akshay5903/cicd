@@ -196,7 +196,7 @@ jobs:
           
           ls -a
           cd /home/runner/work/cicd/cicd/pmd-bin-6.36.0/bin
-          pmd -d /home/runner/work/cicd/cicd/pmdClass -rulesets /home/runner/work/cicd/cicd/pmd-bin-6.36.0/lib/ruleset.xml -f text -reportfile /home/runner/work/cicd/cicd/pmdClass/report39.txt
+          pmd -d /home/runner/work/cicd/cicd/pmdClass -R /home/runner/work/cicd/cicd/pmd-bin-6.36.0/lib/ruleset.xml -f text -reportfile /home/runner/work/cicd/cicd/pmdClass/report39.txt
           cd /home/runner/work/cicd/cicd/pmdClass
           
           ls -a
