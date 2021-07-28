@@ -41,8 +41,10 @@ jobs:
         run: |
           #sudo apt-get update
           #sudo apt-get install xmlstarlet
-          #git fetch origin main
-          #git diff --name-only origin/main..HEAD > mydiff
+          git fetch origin main
+          git diff --name-only origin/main..HEAD > mydiff
+          
+          echo "mydiff = "
           cat mydiff
           DIRDEPLOY=build/deploy
           if [ -d "$DIRDEPLOY" ]; then
