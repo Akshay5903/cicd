@@ -204,6 +204,7 @@ jobs:
           cat /home/runner/work/cicd/cicd/pmdClass/report39.txt | mail -s "PMD" akshay.shar2021@gmail.com -a /home/runner/work/cicd/cicd/pmdClass/report39.txt
           cd /home/runner/work/cicd/cicd/pmdClass
           cat report39.txt
+          echo "GITHUB_SHA_SHORT=$(echo $GITHUB_SHA | cut -c 1-6)" >> cat report39.txt
       - name: Send mail
         if: always()
         uses: dawidd6/action-send-mail@v2
@@ -217,7 +218,7 @@ jobs:
           # email subject
           subject: ${{ github.job }} of ${{ github.repository }} PMD Check Results
           # email body as text
-          body: ${{ cat /home/runner/work/cicd/cicd/pmdClass/report39.txt }}
+          body: cat /home/runner/work/cicd/cicd/pmdClass/report39.txt
           # comma-separated string, send email to
           to: akshay.shar2021@gmail.com
           # from email name
