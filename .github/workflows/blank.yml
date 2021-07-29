@@ -28,20 +28,20 @@ jobs:
         shell: bash
         run: |
           sudo apt-get install ssmtp mailutils
-          cd /etc/ssmtp
-          ls -a
-          ssmtp.conf
-          echo 'root=test@gmail.com
+          sudo cd /etc/ssmtp
+          sudo ls -a
+          sudo cat ssmtp.conf
+          sudo echo 'root=test@gmail.com
           mailhub=smtp.gmail.com:587
           hostname=smtp.gmail.com:587
           UseSTARTTLS=YES
           AuthUser=test@gmail.com
           AuthPass=password
           FromLineOverride=YES' >> ssmtp.conf
-          cat ssmtp.conf
-          echo 'root:test@gmail.com:smtp.gmail.com:587' >> revaliases
-          cat revaliases
-          sendmail -v akshay.shar2021@gmail.com Test
+          sudo cat ssmtp.conf
+          sudo echo 'root:test@gmail.com:smtp.gmail.com:587' >> revaliases
+          sudo cat revaliases
+          sudo sendmail -v akshay.shar2021@gmail.com Test
           
 
       
