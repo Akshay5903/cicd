@@ -1,6 +1,6 @@
 # This is a basic workflow to help you get started with Actions
 
-name: CI
+name: Mail
 
 # Controls when the workflow will run
 on:
@@ -27,7 +27,11 @@ jobs:
       - name: print-diff
         shell: bash
         run: |
-          sudo apt-get install heirloom-mailx
-          cd  ~
-          ls -a
+          sudo apt-get install -y mailx
+          echo "this is the message" | mailx -s "Subject line here" \
+          -S smtp-use-starttls -S ssl-verify=ignore -S smtp-auth=login \
+          -S smtp=smtp://smtp.gmail.com:587 -S from="akshay.shar2021@gmail.com" \
+          -S smtp-auth-user="akshay.shar2021@gmail.com" \
+          -S smtp-auth-password="akkiakki" -S ssl-verify=ignore \
+          -S nss-config-dir=/etc/pki/nssdb/ akshay.shar2019@gmail.com
       
