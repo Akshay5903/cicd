@@ -46,11 +46,14 @@ jobs:
         shell: bash
         run: |
           pwd
-          mail -s "Subject" akshay.shar2021@gmail.com  
+          
           ls -a
           sudo apt-get update
-          sudo apt-get install xmlstarlet
           sudo apt-get install mailutils
+          mail -s "Subject" akshay.shar2021@gmail.com 
+          sudo apt-get install xmlstarlet
+          
+          
           #sudo apt-get install -y apex-pmd
           git fetch origin main
           git diff --name-only origin/main..HEAD > mydiff
