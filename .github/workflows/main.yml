@@ -199,7 +199,9 @@ jobs:
           pwd
           ls -a
           bash run.sh pmd -d /home/runner/work/cicd/cicd/pmdClass -R /home/runner/work/cicd/cicd/pmd-bin-6.36.0/lib/ruleset.xml -f text -reportfile /home/runner/work/cicd/cicd/pmdClass/report39.txt -failOnViolation false
-          echo /home/runner/work/cicd/cicd/pmdClass/report39.txt | mail -s "PMD" akshay.shar2021@gmail.com -a /home/runner/work/cicd/cicd/pmdClass/report39.txt
+          mailbody=$(cat /home/runner/work/cicd/cicd/pmdClass/report39.txt)
+          
+          echo "$mailbody" | mail -s "PMD" akshay.shar2021@gmail.com -a /home/runner/work/cicd/cicd/pmdClass/report39.txt
           cd /home/runner/work/cicd/cicd/pmdClass
           cat report39.txt
       - name: Install Salesforce CLI
