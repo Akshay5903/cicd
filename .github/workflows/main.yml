@@ -50,6 +50,7 @@ jobs:
           sudo apt-get update
           sudo apt-get install xmlstarlet
           sudo apt-get install sendemail
+          sudo apt-get install mailutils
           #sudo apt-get install -y apex-pmd
           git fetch origin main
           git diff --name-only origin/main..HEAD > mydiff
@@ -208,8 +209,8 @@ jobs:
           
  
           #echo "Test email from mailx" | mail -s "TEST" akshay.shar2021@gmail.com
-          
-          sendemail -l email.log -f "akshay.shar2021@gmail.com" -u "PMD Result" -t "akshay.shar2021@gmail.com" -o tls=auto -s "smtp.gmail.com:587" -xu "akshay.shar2021@gmail.com" -xp "akkiakki" -o message-file="/home/runner/work/cicd/cicd/pmdClass/report39.txt"
+          echo "Message Body Here" | mailx -s "PMD Result" -a report39.txt akshay.shar2021@gmail.com
+          #sendemail -l email.log -f "akshay.shar2021@gmail.com" -u "PMD Result" -t "akshay.shar2021@gmail.com" -o tls=auto -s "smtp.gmail.com:587" -xu "akshay.shar2021@gmail.com" -xp "akkiakki" -o message-file="/home/runner/work/cicd/cicd/pmdClass/report39.txt"
       
         
       - name: Install Salesforce CLI
