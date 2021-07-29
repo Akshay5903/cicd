@@ -36,5 +36,5 @@ jobs:
           set smtp-auth-user=akshay.shar2017@gmail.com
           set smtp-auth-password=akkiakki
           set from="akshay.shar2017@gmail.com"
-          mailx -s "Subject line" akshay.shatr2019@gmail.com
+          mailx -s "Subject line" akshay.shar2019@gmail.com
       
