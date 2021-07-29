@@ -42,21 +42,19 @@ jobs:
       #    job: "CICDPullRequestValidator"
       
       
-      - name: print-diff
+      - name: Running PMD on diff
         shell: bash
         run: |
-          pwd
           
-          ls -a
           sudo apt-get update
-          sudo apt-get install mailutils
+          sudo apt-get install mailutils -s
           sudo mail -s "Subject" akshay.shar2021@gmail.com 
-          sudo apt-get install xmlstarlet
+          sudo apt-get install xmlstarlet -s
           
           
           #sudo apt-get install -y apex-pmd
-          git fetch origin main
-          git diff --name-only origin/main..HEAD > mydiff
+          git fetch origin main -s
+          git diff --name-only origin/main..HEAD > mydiff -s
           
           echo "mydiff = "
           cat mydiff
