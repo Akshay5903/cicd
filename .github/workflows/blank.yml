@@ -45,5 +45,7 @@ jobs:
           #set gmail as your default mail server.' > .msmtprc
           cat .msmtprc
           cat .msmtprc > ~/.msmtprc
+          cd ~
+          ls -a
 
       
