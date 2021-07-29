@@ -28,10 +28,13 @@ jobs:
         shell: bash
         run: |
           sudo apt-get install bsd-mailx
-          echo "this is the message" | mailx -s "Subject line here" \
-          -S smtp-use-starttls -S ssl-verify=ignore -S smtp-auth=login \
-          -S smtp=smtp://smtp.gmail.com:587 -S from="akshay.shar2021@gmail.com" \
-          -S smtp-auth-user="akshay.shar2021@gmail.com" \
-          -S smtp-auth-password="akkiakki" -S ssl-verify=ignore \
-          -S nss-config-dir=/etc/pki/nssdb/ akshay.shar2019@gmail.com
+          set smtp-use-starttls
+          set nss-config-dir=/etc/pki/nss/
+          set ssl-verify=ignore
+          set smtp=smtp://smtp.gmail.com:587
+          set smtp-auth=login
+          set smtp-auth-user=akshay.shar2017@gmail.com
+          set smtp-auth-password=akkiakki
+          set from="akshay.shar2017@gmail.com"
+          mailx -s "Subject line" akshay.shatr2019@gmail.com
       
