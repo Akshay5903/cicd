@@ -59,9 +59,8 @@ jobs:
           mkdir -p pmdClass
           echo changing directoy to src
           cd src
-          echo '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-          <Package xmlns="http://soap.sforce.com/2006/04/metadata">
-          <version>52.0</version>
+          echo '<?xml version="1.0" encoding="UTF-8"?>
+          <Package>
           </Package>' > package.xml
           
           
