@@ -206,10 +206,28 @@ jobs:
           cat report39.txt | mailx -s "PMD" akshay.shar2021@gmail.com 
           cd /home/runner/work/cicd/cicd/pmdClass
           cat report39.txt
-      - name: Install Salesforce CLI
-        run: |
-          npm install sfdx-cli
-          node_modules/sfdx-cli/bin/run --version
+          - name: Send mail
+            if: always()
+            uses: dawidd6/action-send-mail@v2
+            with:
+              # mail server settings
+              server_address: smtp.gmail.com
+              server_port: 465
+              # user credentials
+              username: ${{ secrets.EMAIL_USERNAME }}
+              password: ${{ secrets.EMAIL_PASSWORD }}
+              # email subject
+              subject: ${{ github.job }} job of ${{ github.repository }} has ${{ job.status }}
+              # email body as text
+              body: 
+              # comma-separated string, send email to
+              to: akshay.shar2021@gmail.com
+              # from email name
+              from: John Doe
+            - name: Install Salesforce CLI
+              run: |
+                npm install sfdx-cli
+                node_modules/sfdx-cli/bin/run --version
           node_modules/sfdx-cli/bin/run plugins --core
       - name: Authenticate DevHub
         run: |
