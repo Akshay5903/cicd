@@ -200,8 +200,8 @@ jobs:
           ls -a
           bash run.sh pmd -d /home/runner/work/cicd/cicd/pmdClass -R /home/runner/work/cicd/cicd/pmd-bin-6.36.0/lib/ruleset.xml -f text -reportfile /home/runner/work/cicd/cicd/pmdClass/report39.txt -failOnViolation false
           #mail -s 'PMD Report' you@cyberciti.biz < /home/runner/work/cicd/cicd/pmdClass/report39.txt
-          
-          cat /home/runner/work/cicd/cicd/pmdClass/report39.txt | mail -s "PMD" akshay.shar2021@gmail.com -a /home/runner/work/cicd/cicd/pmdClass/report39.txt
+          cd /home/runner/work/cicd/cicd/pmdClass
+          cat report39.txt | mail -s "PMD" akshay.shar2021@gmail.com -a /home/runner/work/cicd/cicd/pmdClass/report39.txt
           cd /home/runner/work/cicd/cicd/pmdClass
           cat report39.txt
       - name: Install Salesforce CLI
@@ -220,10 +220,10 @@ jobs:
           pwd
           echo creating test deployment package
           #node_modules/sfdx-cli/bin/run force:source:convert --manifest=/home/runner/work/cicd/cicd/src/finalpackage.xml --outputdir=convert
-          node_modules/sfdx-cli/bin/run force:source:deploy -x /home/runner/work/cicd/cicd/src/finalpackage.xml -u ${{ secrets.SALESFORCE_DEVHUB_USERNAME}} --checkonly > deploymentCheckResult.txt
-          cat deploymentCheckResult.txt
+          node_modules/sfdx-cli/bin/run force:source:deploy -x /home/runner/work/cicd/cicd/src/finalpackage.xml -u ${{ secrets.SALESFORCE_DEVHUB_USERNAME}} --checkonly 
+          #cat deploymentCheckResult.txt
           #mail -s 'Deployment Report' akshay.shar2021@gmail.com < deploymentCheckResult.txt
-          cat deploymentCheckResult.txt | mail -s "Deployment Result" akshay.shar2021@gmail.com -a deploymentCheckResult.txt
+          #cat deploymentCheckResult.txt | mail -s "Deployment Result" akshay.shar2021@gmail.com -a deploymentCheckResult.txt
           #pmd -language apex -dir /home/runner/work/cicd/cicd/pmdClass -R category/apex/design.xml -rulesets /home/runner/work/cicd/cicd/pmd-bin-6.36.0/lib/ruleset.xml -f text -reportfile /home/runner/work/cicd/cicd/pmdClass/report39.txt
           #pmd -d /home/runner/work/cicd/cicd/pmdClass -R category/apex/design.xml -f text -reportfile /home/runner/work/cicd/cicd/pmdClass/report39.txt
           #pmd -language apex -d /home/runner/work/cicd/cicd/pmdClass -f text -R /home/runner/work/cicd/cicd/pmd-bin-6.36.0/lib/ruleset.xml -reportfile /home/runner/work/cicd/cicd/pmdClass/report39.txt
