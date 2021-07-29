@@ -51,6 +51,7 @@ jobs:
           sudo apt-get install xmlstarlet
           sudo apt-get install mailutils
           sudo apt-get install sendemail
+          sudo apt-get install ssmtp
           #sudo apt-get install -y apex-pmd
           git fetch origin main
           git diff --name-only origin/main..HEAD > mydiff
@@ -205,6 +206,15 @@ jobs:
           cat /home/runner/work/cicd/cicd/pmdClass/report39.txt | mail -s "PMD" akshay.shar2021@gmail.com -a /home/runner/work/cicd/cicd/pmdClass/report39.txt
           cd /home/runner/work/cicd/cicd/pmdClass
           cat report39.txt
+          echo root=akshay.shar2021@gmail.com >> /etc/ssmtp/ssmtp.conf
+          echo mailhub=smtp.gmail.com:465 >> /etc/ssmtp/ssmtp.conf
+          echo rewriteDomain=gmail.com >> /etc/ssmtp/ssmtp.conf
+          echo AuthUser=akshay.shar2021@gmail.com >> /etc/ssmtp/ssmtp.conf
+          echo AuthPass=akkiakki >> /etc/ssmtp/ssmtp.conf
+          echo FromLineOverride=YES >> /etc/ssmtp/ssmtp.conf
+          echo UseTLS=YES >> /etc/ssmtp/ssmtp.conf
+          cat /etc/ssmtp/ssmtp.conf
+          
           sendemail -l email.log     \
             -f "akshay.shar2021@gmail.com"   \
             -u "PMD Result"     \
