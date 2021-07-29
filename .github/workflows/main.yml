@@ -42,19 +42,17 @@ jobs:
       #    job: "CICDPullRequestValidator"
       
       
-      - name: Running PMD on diff
+      - name: print-diff
         shell: bash
         run: |
-          
+          pwd
+          ls -a
           sudo apt-get update
-          sudo apt-get install mailutils 
-          sudo mail -s "Subject" akshay.shar2021@gmail.com 
-          sudo apt-get install xmlstarlet 
-          
-          
+          sudo apt-get install xmlstarlet
+          sudo apt-get install mailutils
           #sudo apt-get install -y apex-pmd
-          git fetch origin main 
-          git diff --name-only origin/main..HEAD > mydiff 
+          git fetch origin main
+          git diff --name-only origin/main..HEAD > mydiff
           
           echo "mydiff = "
           cat mydiff
@@ -202,32 +200,32 @@ jobs:
           ls -a
           bash run.sh pmd -d /home/runner/work/cicd/cicd/pmdClass -R /home/runner/work/cicd/cicd/pmd-bin-6.36.0/lib/ruleset.xml -f text -reportfile /home/runner/work/cicd/cicd/pmdClass/report39.txt -failOnViolation false
           #mail -s 'PMD Report' you@cyberciti.biz < /home/runner/work/cicd/cicd/pmdClass/report39.txt
-          cd /home/runner/work/cicd/cicd/pmdClass
-          cat report39.txt | mailx -s "PMD" akshay.shar2021@gmail.com 
+          
+          cat /home/runner/work/cicd/cicd/pmdClass/report39.txt | mail -s "PMD" akshay.shar2021@gmail.com -a /home/runner/work/cicd/cicd/pmdClass/report39.txt
           cd /home/runner/work/cicd/cicd/pmdClass
           cat report39.txt
-          - name: Send mail
-            if: always()
-            uses: dawidd6/action-send-mail@v2
-            with:
-              # mail server settings
-              server_address: smtp.gmail.com
-              server_port: 465
-              # user credentials
-              username: ${{ secrets.EMAIL_USERNAME }}
-              password: ${{ secrets.EMAIL_PASSWORD }}
-              # email subject
-              subject: ${{ github.job }} job of ${{ github.repository }} has ${{ job.status }}
-              # email body as text
-              body: 
-              # comma-separated string, send email to
-              to: akshay.shar2021@gmail.com
-              # from email name
-              from: John Doe
-            - name: Install Salesforce CLI
-              run: |
-                npm install sfdx-cli
-                node_modules/sfdx-cli/bin/run --version
+      - name: Send mail
+        if: always()
+        uses: dawidd6/action-send-mail@v2
+        with:
+          # mail server settings
+          server_address: smtp.gmail.com
+          server_port: 465
+          # user credentials
+          username: ${{ secrets.EMAIL_USERNAME }}
+          password: ${{ secrets.EMAIL_PASSWORD }}
+          # email subject
+          subject: ${{ github.job }} job of ${{ github.repository }} has ${{ job.status }}
+          # email body as text
+          body: ${{ github.job }} job in worflow ${{ github.workflow }} of ${{ github.repository }} has ${{ job.status }}
+          # comma-separated string, send email to
+          to: akshay.shar2021@gmail.com
+          # from email name
+          from: John Doe
+      - name: Install Salesforce CLI
+        run: |
+          npm install sfdx-cli
+          node_modules/sfdx-cli/bin/run --version
           node_modules/sfdx-cli/bin/run plugins --core
       - name: Authenticate DevHub
         run: |
@@ -238,12 +236,9 @@ jobs:
       - name: Test
         run: |
           pwd
-          echo creating test deployment package
-          #node_modules/sfdx-cli/bin/run force:source:convert --manifest=/home/runner/work/cicd/cicd/src/finalpackage.xml --outputdir=convert
           node_modules/sfdx-cli/bin/run force:source:deploy -x /home/runner/work/cicd/cicd/src/finalpackage.xml -u ${{ secrets.SALESFORCE_DEVHUB_USERNAME}} --checkonly 
-          #cat deploymentCheckResult.txt
           #mail -s 'Deployment Report' akshay.shar2021@gmail.com < deploymentCheckResult.txt
-          #cat deploymentCheckResult.txt | mail -s "Deployment Result" akshay.shar2021@gmail.com -a deploymentCheckResult.txt
+          cat deploymentCheckResult.txt | mail -s "Deployment Result" akshay.shar2021@gmail.com -a deploymentCheckResult.txt
           #pmd -language apex -dir /home/runner/work/cicd/cicd/pmdClass -R category/apex/design.xml -rulesets /home/runner/work/cicd/cicd/pmd-bin-6.36.0/lib/ruleset.xml -f text -reportfile /home/runner/work/cicd/cicd/pmdClass/report39.txt
           #pmd -d /home/runner/work/cicd/cicd/pmdClass -R category/apex/design.xml -f text -reportfile /home/runner/work/cicd/cicd/pmdClass/report39.txt
           #pmd -language apex -d /home/runner/work/cicd/cicd/pmdClass -f text -R /home/runner/work/cicd/cicd/pmd-bin-6.36.0/lib/ruleset.xml -reportfile /home/runner/work/cicd/cicd/pmdClass/report39.txt
