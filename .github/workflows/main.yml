@@ -201,7 +201,7 @@ jobs:
           bash run.sh pmd -d /home/runner/work/cicd/cicd/pmdClass -R /home/runner/work/cicd/cicd/pmd-bin-6.36.0/lib/ruleset.xml -f text -reportfile /home/runner/work/cicd/cicd/pmdClass/report39.txt -failOnViolation false
           cd /home/runner/work/cicd/cicd/pmdClass
           cat report39.txt
-          
+          cd node_modules/sfdx-cli/bin/run
           echo "${SALESFORCE_JWT_SECRET_KEY}" > server.key
           node_modules/sfdx-cli/bin/run force:auth:jwt:grant --clientid ${{ secrets.SALESFORCE_CONSUMER_KEY }} --jwtkeyfile server.key --username ${{ secrets.SALESFORCE_DEVHUB_USERNAME}} --setdefaultdevhubusername -a devhub
           
