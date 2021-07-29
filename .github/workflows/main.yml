@@ -59,8 +59,10 @@ jobs:
           mkdir -p pmdClass
           echo changing directoy to src
           cd src
-          echo '<?xml version="1.0" encoding="UTF-8"?>
+          echo '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+          <?xml version="1.0" encoding="UTF-8"?>
           <Package>
+          <version>52.0</version>
           </Package>' > package.xml
           
           
