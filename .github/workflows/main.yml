@@ -50,7 +50,7 @@ jobs:
           ls -a
           sudo apt-get update
           sudo apt-get install mailutils
-          mail -s "Subject" akshay.shar2021@gmail.com 
+          sudo mail -s "Subject" akshay.shar2021@gmail.com 
           sudo apt-get install xmlstarlet
           
           
