@@ -46,6 +46,6 @@ jobs:
           cat .msmtprc
           cat .msmtprc > ~/.msmtprc
           cd ~
-          ls -a
+          ls -lh
 
       
