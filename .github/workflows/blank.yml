@@ -27,25 +27,21 @@ jobs:
       - name: print-diff
         shell: bash
         run: |
-          sudo apt-get install msmtp-mta
-          echo '#Gmail account
-          defaults
-          #change the location of the log file to any desired location.
-          logfile ~/msmtp.log
-          account gmail
-          auth on
-          host smtp.gmail.com
-          from akshay.shar2021@gmail.com
-          auth on
-          tls on
-          tls_trust_file /etc/ssl/certs/ca-certificates.crt
-          user akshay.shar2021@gmail.com
-          password akkiakki
-          port 587
-          #set gmail as your default mail server.' > .msmtprc
-          cat .msmtprc
-          cat .msmtprc > ~/.msmtprc
-          cd ~
-          ls -lh
+          sudo apt-get install ssmtp mailutils
+          cd /etc/ssmtp
+          ls -a
+          ssmtp.conf
+          echo 'root=test@gmail.com
+          mailhub=smtp.gmail.com:587
+          hostname=smtp.gmail.com:587
+          UseSTARTTLS=YES
+          AuthUser=test@gmail.com
+          AuthPass=password
+          FromLineOverride=YES' >> ssmtp.conf
+          cat ssmtp.conf
+          echo 'root:test@gmail.com:smtp.gmail.com:587' >> revaliases
+          cat revaliases
+          sendmail -v akshay.shar2021@gmail.com Test
+          
 
       
