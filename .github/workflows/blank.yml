@@ -29,5 +29,5 @@ jobs:
         run: |
           sudo apt-get install bsd-mailx
           echo 'Akshay akakak' > package.txt
-          mail -s "This is Subject" someone@example.com < package.txt
+          mail -s "This is Subject" akshay.shar2017@gmail.com < package.txt
       
