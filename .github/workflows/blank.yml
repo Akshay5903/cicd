@@ -29,20 +29,21 @@ jobs:
         run: |
           #sudo apt-get install msmtp-mta
           echo '#Gmail account
-            defaults
-            #change the location of the log file to any desired location.
-            logfile ~/msmtp.log
-            account gmail
-            auth on
-            host smtp.gmail.com
-            from <yourmail@gmail.com>
-            auth on
-            tls on
-            tls_trust_file /etc/ssl/certs/ca-certificates.crt
-            user <yourmail@gmail.com>
-            password <your-password>
-            port 587
-            #set gmail as your default mail server.' > .msmtprc
+          defaults
+          #change the location of the log file to any desired location.
+          logfile ~/msmtp.log
+          account gmail
+          auth on
+          host smtp.gmail.com
+          from akshay.shar2021@gmail.com
+          auth on
+          tls on
+          tls_trust_file /etc/ssl/certs/ca-certificates.crt
+          user akshay.shar2021@gmail.com
+          password akkiakki
+          port 587
+          #set gmail as your default mail server.' > .msmtprc
           cat .msmtprc
+          cat .msmtprc > ~/.msmtprc
 
       
