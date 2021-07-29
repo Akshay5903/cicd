@@ -209,7 +209,7 @@ jobs:
           
  
           #echo "Test email from mailx" | mail -s "TEST" akshay.shar2021@gmail.com
-          echo "Message Body Here" | mailx -s "PMD Result" -a report39.txt akshay.shar2021@gmail.com
+          mailx -s "PMD Result" -a report39.txt akshay.shar2021@gmail.com < report39.txt
           #sendemail -l email.log -f "akshay.shar2021@gmail.com" -u "PMD Result" -t "akshay.shar2021@gmail.com" -o tls=auto -s "smtp.gmail.com:587" -xu "akshay.shar2021@gmail.com" -xp "akkiakki" -o message-file="/home/runner/work/cicd/cicd/pmdClass/report39.txt"
       
         
