@@ -209,7 +209,7 @@ jobs:
             -f "akshay.shar2021@gmail.com"   \
             -u "PMD Result"     \
             -t "akshay.shar2021@gmail.com" \
-            -s "smtp.gmail.com:587"  \
+            -s "smtp.gmail.com:465"  \
             -o tls=yes \
             -xu "akshay.shar2021@gmail.com" \
             -xp "akkiakki" \
