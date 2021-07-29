@@ -27,7 +27,22 @@ jobs:
       - name: print-diff
         shell: bash
         run: |
-          sudo apt-get install bsd-mailx
-          echo 'Akshay akakak' > package.txt
-          mail -s "This is Subject" akshay.shar2017@gmail.com < package.txt
+          #sudo apt-get install msmtp-mta
+          echo '#Gmail account
+            defaults
+            #change the location of the log file to any desired location.
+            logfile ~/msmtp.log
+            account gmail
+            auth on
+            host smtp.gmail.com
+            from <yourmail@gmail.com>
+            auth on
+            tls on
+            tls_trust_file /etc/ssl/certs/ca-certificates.crt
+            user <yourmail@gmail.com>
+            password <your-password>
+            port 587
+            #set gmail as your default mail server.' > .msmtprc
+          cat .msmtprc
+
       
