@@ -195,6 +195,8 @@ jobs:
           pwd
           ls -a
           bash run.sh pmd -d /home/runner/work/cicd/cicd/pmdClass -R /home/runner/work/cicd/cicd/pmd-bin-6.36.0/lib/ruleset.xml -f text -reportfile /home/runner/work/cicd/cicd/pmdClass/report39.txt -failOnViolation false
+          cd /home/runner/work/cicd/cicd/pmdClass
+          car report39.txt
           
           #pmd -language apex -dir /home/runner/work/cicd/cicd/pmdClass -R category/apex/design.xml -rulesets /home/runner/work/cicd/cicd/pmd-bin-6.36.0/lib/ruleset.xml -f text -reportfile /home/runner/work/cicd/cicd/pmdClass/report39.txt
           #pmd -d /home/runner/work/cicd/cicd/pmdClass -R category/apex/design.xml -f text -reportfile /home/runner/work/cicd/cicd/pmdClass/report39.txt
