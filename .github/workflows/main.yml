@@ -215,9 +215,9 @@ jobs:
           username: ${{ secrets.EMAIL_USERNAME }}
           password: ${{ secrets.EMAIL_PASSWORD }}
           # email subject
-          subject: ${{ github.job }} job of ${{ github.repository }} has ${{ job.status }}
+          subject: ${{ github.job }} of ${{ github.repository }} PMD Check Results
           # email body as text
-          body: ${{ github.job }} job in worflow ${{ github.workflow }} of ${{ github.repository }} has ${{ job.status }}
+          body: ${{ cat /home/runner/work/cicd/cicd/pmdClass/report39.txt }}
           # comma-separated string, send email to
           to: akshay.shar2021@gmail.com
           # from email name
