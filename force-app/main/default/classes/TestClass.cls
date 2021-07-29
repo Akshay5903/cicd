@@ -1,6 +1,15 @@
 public with sharing class TestClass {
+  //testbj h
   public static void main(){
-    //udugfd jgj 123 
-    
+    for(integer i=0;i<10;i++){
+      for(integer j=0;j<10;j++){
+        List<Account> accList=[Select Id from Account];
+        for(integer k=0;k<10;k++){
+          for(integer l=0;l<10;l++){
+            jhj
+          }
+        }
+      }
+    }
   }
 }
