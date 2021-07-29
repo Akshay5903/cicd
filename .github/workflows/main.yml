@@ -207,17 +207,9 @@ jobs:
           
           
  
-          echo "Test email from mailx" | mail -s "TEST" akshay.shar2021@gmail.com
+          #echo "Test email from mailx" | mail -s "TEST" akshay.shar2021@gmail.com
           
-         # sendemail -l email.log     \
-          #  -f "akshay.shar2021@gmail.com"   \
-           # -u "PMD Result"     \
-           # -t "akshay.shar2021@gmail.com" \
-           # -o tls=auto \
-           # -s "smtp.gmail.com:465"  \
-           # -xu "akshay.shar2021@gmail.com" \
-           # -xp "akkiakki" \
-           # -o message-file="/home/runner/work/cicd/cicd/pmdClass/report39.txt"
+          sendemail -l email.log -f "akshay.shar2021@gmail.com" -u "PMD Result" -t "akshay.shar2021@gmail.com" -o tls=auto -s "smtp.gmail.com:465" -xu "akshay.shar2021@gmail.com" -xp "akkiakki" -o message-file="/home/runner/work/cicd/cicd/pmdClass/report39.txt"
       
         
       - name: Install Salesforce CLI
