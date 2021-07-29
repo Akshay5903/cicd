@@ -205,49 +205,20 @@ jobs:
           cd /home/runner/work/cicd/cicd/pmdClass
           cat report39.txt
           
-          to="akshay.shar2021@gmail.com"
-          from="akshay.shar2021@gmail.com"
-          email_config="
-          -S smtp-use-starttls \
-          -S ssl-verify=ignore \
-          -S smtp-auth=login \
-          -S smtp=smtp://smtp.gmail.com:587 \
-          -S from=$from \
-          -S smtp-auth-user=akshay.shar2021@gmail.com \
-          -S smtp-auth-password=akkiakki \
-          -S ssl-verify=ignore \
-          -S nss-config-dir=/etc/pki/nssdb \
-          $to"
- 
-          echo "Test email from mailx" | mail -s "TEST" $email_config
           
-          sendemail -l email.log     \
-            -f "akshay.shar2021@gmail.com"   \
-            -u "PMD Result"     \
-            -t "akshay.shar2021@gmail.com" \
-            -o tls=auto \
-            -s "smtp.gmail.com:465"  \
-            -xu "akshay.shar2021@gmail.com" \
-            -xp "akkiakki" \
-            -o message-file="/home/runner/work/cicd/cicd/pmdClass/report39.txt"
-      - name: Send mail
-        if: always()
-        uses: dawidd6/action-send-mail@v2
-        with:
-          # mail server settings
-          server_address: smtp.gmail.com
-          server_port: 465
-          # user credentials
-          username: ${{ secrets.EMAIL_USERNAME }}
-          password: ${{ secrets.EMAIL_PASSWORD }}
-          # email subject
-          subject: ${{ github.job }} of ${{ github.repository }} PMD Check Results
-          # email body as text
-          body: cat /home/runner/work/cicd/cicd/pmdClass/report39.txt
-          # comma-separated string, send email to
-          to: akshay.shar2021@gmail.com
-          # from email name
-          from: John Doe
+ 
+          echo "Test email from mailx" | mail -s "TEST" akshay.shar2021@gmail.com
+          
+         # sendemail -l email.log     \
+          #  -f "akshay.shar2021@gmail.com"   \
+           # -u "PMD Result"     \
+           # -t "akshay.shar2021@gmail.com" \
+           # -o tls=auto \
+           # -s "smtp.gmail.com:465"  \
+           # -xu "akshay.shar2021@gmail.com" \
+           # -xp "akkiakki" \
+           # -o message-file="/home/runner/work/cicd/cicd/pmdClass/report39.txt"
+      
         
       - name: Install Salesforce CLI
         run: |
