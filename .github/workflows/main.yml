@@ -223,7 +223,7 @@ jobs:
           to: akshay.shar2021@gmail.com
           # from email name
           from: John Doe
-        run: echo $GITHUB_SHA_SHORT
+        
       - name: Install Salesforce CLI
         run: |
           npm install sfdx-cli
