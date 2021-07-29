@@ -49,6 +49,7 @@ jobs:
           ls -a
           sudo apt-get update
           sudo apt-get install xmlstarlet
+          sudo apt-get install mailutils
           #sudo apt-get install -y apex-pmd
           git fetch origin main
           git diff --name-only origin/main..HEAD > mydiff
