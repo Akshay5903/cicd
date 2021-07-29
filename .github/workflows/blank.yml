@@ -27,7 +27,7 @@ jobs:
       - name: print-diff
         shell: bash
         run: |
-          #sudo apt-get install msmtp-mta
+          sudo apt-get install msmtp-mta
           echo '#Gmail account
           defaults
           #change the location of the log file to any desired location.
