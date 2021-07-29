@@ -5,7 +5,7 @@ public with sharing class TestClass {
       for(integer j=0;j<10;j++){
         List<Account> accList=[Select Id from Account];
         for(integer k=0;k<10;k++){
-          for(integer l=o;l<10;l++){
+          for(integer l=0;l<10;l++){
           }
         }
       }
