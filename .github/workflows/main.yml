@@ -137,7 +137,7 @@ jobs:
                                   ENTITY="${ENTITY%.*}"
                           fi
                           echo Akshay Code
-                          cd src
+                          cd /home/runner/work/cicd/cicd/src
                           pwd
                           if grep -Fq "&amp;amp;lt;name&amp;amp;gt;$TYPENAME&amp;amp;lt;/name&amp;amp;gt;" package.xml
                           then
