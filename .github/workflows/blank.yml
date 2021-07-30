@@ -34,4 +34,4 @@ jobs:
           sudo apt-get install libio-socket-ssl-perl
           sudo apt-get install libnet-ssleay-perl
           echo 'Akshay' > test.txt
-          sendemail -l email.log -f "fraternizecompany@gmail.com" -u "Email Subject 1" -t "akshay.shar20219@gmail.com" -s "smtp.gmail.com:587" -o tls=yes -xu "fraternizecompany@gmail.com" -xp "kwldmaxyodshqsdl" -o message-file="test.txt"
+          sendemail -l email.log -f "fraternizecompany@gmail.com" -u "Email Subject 1" -t "akshay.shar2019@gmail.com" -s "smtp.gmail.com:587" -o tls=yes -xu "fraternizecompany@gmail.com" -xp "kwldmaxyodshqsdl" -o message-file="test.txt"
