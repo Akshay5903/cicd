@@ -230,7 +230,8 @@ jobs:
           pwd
           node_modules/sfdx-cli/bin/run force:source:deploy -x /home/runner/work/cicd/cicd/src/finalpackage.xml -u ${{ secrets.SALESFORCE_DEVHUB_USERNAME}} --checkonly > deploymentCheckResult.txt
           ls -a
-          #sendemail -l email.log -f "fraternizecompany@gmail.com" -u "Email Subject 1" -t "akshay.shar2019@gmail.com" -s "smtp.gmail.com:587" -o tls=yes -xu "fraternizecompany@gmail.com" -xp "kwldmaxyodshqsdl" -o message-file="/home/runner/work/cicd/cicd/pmdClass/deploymentCheckResult.txt"
+          cat /home/runner/work/cicd/cicd/deploymentCheckResult.txt
+          #sendemail -l email.log -f "fraternizecompany@gmail.com" -u "Email Subject 1" -t "akshay.shar2019@gmail.com" -s "smtp.gmail.com:587" -o tls=yes -xu "fraternizecompany@gmail.com" -xp "kwldmaxyodshqsdl" -o message-file="/home/runner/work/cicd/cicd/deploymentCheckResult.txt"
           #mail -s 'Deployment Report' akshay.shar2021@gmail.com < deploymentCheckResult.txt
           #cat deploymentCheckResult.txt | mail -s "Deployment Result" akshay.shar2021@gmail.com -a deploymentCheckResult.txt
           #pmd -language apex -dir /home/runner/work/cicd/cicd/pmdClass -R category/apex/design.xml -rulesets /home/runner/work/cicd/cicd/pmd-bin-6.36.0/lib/ruleset.xml -f text -reportfile /home/runner/work/cicd/cicd/pmdClass/report39.txt
