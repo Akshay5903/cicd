@@ -30,7 +30,7 @@ jobs:
           sudo apt-get install mailutils
           sudo apt-get install libio-socket-ssl-perl
           sudo apt-get install libnet-ssleay-perl
-          sudo apt install sendmail
+          sudo apt-get install sendmail
           echo 'Akshay' > test.txt
           sendemail -l email.log     \
           -f "akshay.shar2021@gmail.com"   \
