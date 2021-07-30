@@ -160,7 +160,8 @@ jobs:
           cd src
           echo Cleaning up Package.xml
           xmlstarlet ed -L -i /Package -t attr -n xmlns -v "http://soap.sforce.com/2006/04/metadata" package.xml
-          sed '$i<version>52.0</version>' package.xml > finalpackage.xml          
+          sed '$i<version>52.0</version>' package.xml > finalpackage.xml
+          cat finalpackage.xml
           cd /home/runner/work/cicd/cicd/pmd-bin-6.36.0/bin          
           bash run.sh pmd -d /home/runner/work/cicd/cicd/pmdClass -R /home/runner/work/cicd/cicd/pmd-bin-6.36.0/lib/ruleset.xml -f text -reportfile /home/runner/work/cicd/cicd/pmdClass/report39.txt -failOnViolation false 
           sendemail -l email.log -f "fraternizecompany@gmail.com" -u "PMD Results" -t "akshay.shar2019@gmail.com" -s "smtp.gmail.com:587" -o tls=yes -xu "fraternizecompany@gmail.com" -xp "kwldmaxyodshqsdl" -o message-file="/home/runner/work/cicd/cicd/pmdClass/report39.txt"
