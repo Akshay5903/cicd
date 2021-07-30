@@ -162,7 +162,7 @@ jobs:
                           
                   fi
           done
-          cd src
+          cd /home/runner/work/cicd/cicd/src
           echo Cleaning up Package.xml
           xmlstarlet ed -L -i /Package -t attr -n xmlns -v "http://soap.sforce.com/2006/04/metadata" package.xml
           sed '$i<version>52.0</version>' package.xml > finalpackage.xml
