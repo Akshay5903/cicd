@@ -49,6 +49,7 @@ jobs:
               rm -rf "$DIRDEPLOY"
           fi
           mkdir -p $DIRDEPLOY
+          pwd
           git diff --name-only origin/main..HEAD | \
           while read -r CFILE; do
 
@@ -66,8 +67,9 @@ jobs:
                   fi
                   if [[ $CFILE == *"/aura/"*"."* ]]
                   then
-                          echo if3
+                          echo if45
                           DIR=$(dirname "$CFILE")
+                          echo ppppp $DIR
                           tar cf - ../$DIR | (cd ../$DIRDEPLOY; tar xf -)
                   fi
 
