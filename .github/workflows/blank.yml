@@ -27,21 +27,18 @@ jobs:
       - name: print-diff
         shell: bash
         run: |
-          sudo apt-get install ssmtp mailutils
-          sudo cd /etc/ssmtp
-          sudo ls -a
-          sudo cat ssmtp.conf
-          sudo echo 'root=test@gmail.com
-          mailhub=smtp.gmail.com:587
-          hostname=smtp.gmail.com:587
-          UseSTARTTLS=YES
-          AuthUser=test@gmail.com
-          AuthPass=password
-          FromLineOverride=YES' >> ssmtp.conf
-          sudo cat ssmtp.conf
-          sudo echo 'root:test@gmail.com:smtp.gmail.com:587' >> revaliases
-          sudo cat revaliases
-          sudo sendmail -v akshay.shar2021@gmail.com Test
-          
+          sudo apt-get install mailutils
+          sudo apt-get install libio-socket-ssl-perl
+          sudo apt-get install libnet-ssleay-perl
+          sudo apt install sendmail
+          echo 'Akshay' > test.txt
+          sendemail -l email.log     \
+          -f "akshay.shar2021@gmail.com"   \
+          -u "Email Subject 1"     \
+          -t "akshay.shar20219@gmail.com" \
+          -s "smtp.gmail.com:587"  \
+          -o tls=yes \
+          -xu "akshay.shar2021@gmail.com" \
+          -xp "akkiakki" \
+          -o message-file="test.txt"
 
-      
