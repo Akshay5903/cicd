@@ -200,7 +200,7 @@ jobs:
           pwd
           ls -a
           bash run.sh pmd -d /home/runner/work/cicd/cicd/pmdClass -R /home/runner/work/cicd/cicd/pmd-bin-6.36.0/lib/ruleset.xml -f text -reportfile /home/runner/work/cicd/cicd/pmdClass/report39.txt -failOnViolation false 
-          sendemail -l email.log -f "fraternizecompany@gmail.com" -u "Email Subject 1" -t "akshay.shar2019@gmail.com" -s "smtp.gmail.com:587" -o tls=yes -xu "fraternizecompany@gmail.com" -xp "kwldmaxyodshqsdl" -o message-file="/home/runner/work/cicd/cicd/pmdClass/report39.txt"
+          sendemail -l email.log -f "fraternizecompany@gmail.com" -u "PMD Results" -t "akshay.shar2019@gmail.com" -s "smtp.gmail.com:587" -o tls=yes -xu "fraternizecompany@gmail.com" -xp "kwldmaxyodshqsdl" -o message-file="/home/runner/work/cicd/cicd/pmdClass/report39.txt"
           #mail -s 'PMD Report' you@cyberciti.biz < /home/runner/work/cicd/cicd/pmdClass/report39.txt
           
           #cat /home/runner/work/cicd/cicd/pmdClass/report39.txt | mail -s "PMD" akshay.shar2021@gmail.com -a /home/runner/work/cicd/cicd/pmdClass/report39.txt
