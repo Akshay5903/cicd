@@ -30,6 +30,7 @@ jobs:
           sudo apt-get update
           sudo apt-get install xmlstarlet
           sudo apt-get install sendemail
+          pwd
           git fetch origin main
           git diff --name-only origin/main..HEAD > mydiff
           echo "mydiff = "
