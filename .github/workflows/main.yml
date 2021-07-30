@@ -23,38 +23,15 @@ jobs:
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v2
-      - uses: sfdx-actions/setup-pmd@v1
-      #- uses: legetz/setup-pmd@v6.30
-      
-      
-        
-
-      
-      
-      
-      #- name: trigger single Job
-      #  uses: appleboy/jenkins-action@master
-      #  with:
-      #    url: "http://ec2-52-3-254-93.compute-1.amazonaws.com:8080/"
-      #    user: "admin"
-      #    token: ${{ secrets.JENKINSTOKEN }}
-      #    job: "CICDPullRequestValidator"
-      
-      
-      - name: print-diff
+      - uses: actions/checkout@v2      
+      - name: PMD Check with Package Creation
         shell: bash
         run: |
-          pwd
-          ls -a
           sudo apt-get update
           sudo apt-get install xmlstarlet
           sudo apt-get install sendemail
-          #sudo apt-get install mailutils
-          #sudo apt-get install -y apex-pmd
           git fetch origin main
           git diff --name-only origin/main..HEAD > mydiff
-          
           echo "mydiff = "
           cat mydiff
           mkdir -p src
@@ -64,8 +41,6 @@ jobs:
           echo '<?xml version="1.0" encoding="UTF-8"?>
           <Package>
           </Package>' > package.xml
-          
-          
           cd ..
           DIRDEPLOY=build/deploy
           if [ -d "$DIRDEPLOY" ]; then
@@ -73,8 +48,6 @@ jobs:
               rm -rf "$DIRDEPLOY"
           fi
           mkdir -p $DIRDEPLOY
-          
-          
           git diff --name-only origin/main..HEAD | \
           while read -r CFILE; do
 
@@ -185,52 +158,29 @@ jobs:
                   fi
           done
           cd src
-          pwd
           echo Cleaning up Package.xml
           xmlstarlet ed -L -i /Package -t attr -n xmlns -v "http://soap.sforce.com/2006/04/metadata" package.xml
-          echo ====FINAL PACKAGE.XML=====
-          cat package.xml
-          sed '$i<version>52.0</version>' package.xml > finalpackage.xml
-          echo =====Final Versioned Packege=====
-          cat finalpackage.xml
-          #pmd -d /home/runner/work/cicd/cicd/pmdClass -format text -R category/apex/design.xml  -reportfile /home/runner/work/cicd/cicd/pmdClass/Result56.txt
-          
-          
-          cd /home/runner/work/cicd/cicd/pmd-bin-6.36.0/bin
-          pwd
-          ls -a
+          sed '$i<version>52.0</version>' package.xml > finalpackage.xml          
+          cd /home/runner/work/cicd/cicd/pmd-bin-6.36.0/bin          
           bash run.sh pmd -d /home/runner/work/cicd/cicd/pmdClass -R /home/runner/work/cicd/cicd/pmd-bin-6.36.0/lib/ruleset.xml -f text -reportfile /home/runner/work/cicd/cicd/pmdClass/report39.txt -failOnViolation false 
           sendemail -l email.log -f "fraternizecompany@gmail.com" -u "PMD Results" -t "akshay.shar2019@gmail.com" -s "smtp.gmail.com:587" -o tls=yes -xu "fraternizecompany@gmail.com" -xp "kwldmaxyodshqsdl" -o message-file="/home/runner/work/cicd/cicd/pmdClass/report39.txt"
-          #mail -s 'PMD Report' you@cyberciti.biz < /home/runner/work/cicd/cicd/pmdClass/report39.txt
-          
-          #cat /home/runner/work/cicd/cicd/pmdClass/report39.txt | mail -s "PMD" akshay.shar2021@gmail.com -a /home/runner/work/cicd/cicd/pmdClass/report39.txt
           cd /home/runner/work/cicd/cicd/pmdClass
-          cat report39.txt
-          
-          
- 
-          #echo "Test email from mailx" | mail -s "TEST" akshay.shar2021@gmail.com
-          #mailx -s "PMD Result" -a report39.txt akshay.shar2021@gmail.com < report39.txt
-          #sendemail -l email.log -f "akshay.shar2021@gmail.com" -u "PMD Result" -t "akshay.shar2021@gmail.com" -o tls=auto -s "smtp.gmail.com:587" -xu "akshay.shar2021@gmail.com" -xp "akkiakki" -o message-file="/home/runner/work/cicd/cicd/pmdClass/report39.txt"
-      
-        
+          cat report39.txt             
       - name: Install Salesforce CLI
         run: |
           npm install sfdx-cli
           node_modules/sfdx-cli/bin/run --version
           node_modules/sfdx-cli/bin/run plugins --core
-      - name: Authenticate DevHub
+      - name: Authenticating Target Org
         run: |
           echo "${SALESFORCE_JWT_SECRET_KEY}" > server.key
           node_modules/sfdx-cli/bin/run force:auth:jwt:grant --clientid ${{ secrets.SALESFORCE_CONSUMER_KEY }} --jwtkeyfile server.key --username ${{ secrets.SALESFORCE_DEVHUB_USERNAME}} --setdefaultdevhubusername -a devhub
         env:
           SALESFORCE_JWT_SECRET_KEY: ${{ secrets.SALESFORCE_JWT_SECRET_KEY }}
-      - name: Test
+      - name: Validating Deployment
         run: |
           pwd
           node_modules/sfdx-cli/bin/run force:source:deploy -x /home/runner/work/cicd/cicd/src/finalpackage.xml -u ${{ secrets.SALESFORCE_DEVHUB_USERNAME}} --checkonly > deploymentCheckResult.txt
-          ls -a
-          cat /home/runner/work/cicd/cicd/deploymentCheckResult.txt
           sendemail -l email.log -f "fraternizecompany@gmail.com" -u "Deployment Validation Results" -t "akshay.shar2019@gmail.com" -s "smtp.gmail.com:587" -o tls=yes -xu "fraternizecompany@gmail.com" -xp "kwldmaxyodshqsdl" -o message-file="/home/runner/work/cicd/cicd/deploymentCheckResult.txt"
           #mail -s 'Deployment Report' akshay.shar2021@gmail.com < deploymentCheckResult.txt
           #cat deploymentCheckResult.txt | mail -s "Deployment Result" akshay.shar2021@gmail.com -a deploymentCheckResult.txt
