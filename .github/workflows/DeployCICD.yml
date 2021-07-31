@@ -23,4 +23,4 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
       - name: setting first github successtoken
-        run: echo "19bcdeb8f93f9351cf88ae019704a587cb4c6419" >> /github/home/lastSuccessfullCommit.txt
+        run: echo "19bcdeb8f93f9351cf88ae019704a587cb4c6419" > /github/home/lastSuccessfullCommit.txt
