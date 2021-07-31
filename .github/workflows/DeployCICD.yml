@@ -30,6 +30,8 @@ jobs:
           cd cicd
           git checkout commitBranch
           git pull
+          git config --global user.email "akshay.shar2019@gmail.com"
+          git config --global user.name "Akshay 5903"
           echo "19bcdeb8f93f9351cf88ae019704a587cb4c6419" > recentSuccessfulCommit.TXT
           git add --all
           git commit -m "Recent Commit Add"
