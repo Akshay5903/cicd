@@ -37,6 +37,7 @@ jobs:
           git config --global user.email "akshay.shar2019@gmail.com"
           git config --global user.name "Akshay5903"
           echo cloning..
+          gh auth login --with-token < ${{secrets.PAT}}
           gh repo clone Akshay5903/cicd
           echo changing dircetory to cicd
           cd cicd
