@@ -21,23 +21,44 @@ jobs:
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - name: Checkout
-        uses: actions/checkout@v2
-        with:
-          persist-credentials: false # otherwise, the token used is the GITHUB_TOKEN, instead of your personal token
-          fetch-depth: 0 # otherwise, you will failed to push refs to dest repo
-          
       - uses: actions/checkout@v2
         with:
           ref: commitBranch
       - name: setting first github successtoken
         run: |
+          echo y | node_modules/sfdx-cli/bin/run plugins:install sfdx-git-delta
+          cp recentSuccessfulCommit.TXT lastRecentCommit.txt
+      - name: Checkout
+        uses: actions/checkout@v2
+        run: |
           ls -a
-          echo "19bcdeb8f93f9351cf88ae019704a587cb4c6419" > recentSuccessfulCommit.TXT
-          git config --global user.email "akshay.shar2019@gmail.com"
-          git config --global user.name "Akshay5903"
-          git add --all
-          git commit -m "Push All"
-          git push
+#       - name: Install Salesforce CLI
+#         run: |
+#           npm install sfdx-cli
+#           node_modules/sfdx-cli/bin/run --version
+#           node_modules/sfdx-cli/bin/run plugins --core  
+          
+#       - uses: actions/checkout@v2
+#         with:
+#           ref: commitBranch
+#       - name: setting first github successtoken
+#         run: |
+#           echo y | node_modules/sfdx-cli/bin/run plugins:install sfdx-git-delta
+#           cp recentSuccessfulCommit.TXT lastRecentCommit.txt
+#           rm -rf C:/Windows/System32/config/systemprofile/AppData/Local/Jenkins/.jenkins/workspace/CICDPipeline/package
+#           echo y | sfdx plugins:install sfdx-git-delta
+#           sfdx sgd:source:delta --to $LCOMMIT --from $PREVRSA --output "."
+#           echo removing existing deployment folder
+#           rm -rf C:/Windows/System32/config/systemprofile/AppData/Local/Jenkins/.jenkins/workspace/CICDPipeline/convert
+#           echo creating Deployment Package
+#           sfdx force:source:convert --manifest=C:/Windows/System32/config/systemprofile/AppData/Local/Jenkins/.jenkins/workspace/CICDPipeline/package/package.xml --outputdir=convert
+
+#           ls -a
+#           echo "19bcdeb8f93f9351cf88ae019704a587cb4c6419" > recentSuccessfulCommit.TXT
+#           git config --global user.email "akshay.shar2019@gmail.com"
+#           git config --global user.name "Akshay5903"
+#           git add --all
+#           git commit -m "Push All"
+#           git push
           
           
