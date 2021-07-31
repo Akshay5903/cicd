@@ -65,7 +65,7 @@ jobs:
                           ADDFILE=$CFILE
                           ADDFILE="${ADDFILE%-meta.xml*}"
                           echo akshay ppp $ADDFILE
-                          tar cf - ../$ADDFILE | (cd ../$DIRDEPLOY; tar xf -)
+                          #tar cf - ../$ADDFILE | (cd ../$DIRDEPLOY; tar xf -)
                   fi
                   if [[ $CFILE == *"/aura/"*"."* ]]
                   then
