@@ -27,6 +27,7 @@ jobs:
       - name: setting first github successtoken
         run: |
           #echo y | node_modules/sfdx-cli/bin/run plugins:install sfdx-git-delta
+          pwd
           mkdir -p recentCommit
           #cd recentCommit
           cp recentSuccessfulCommit.TXT ./recentCommit/lastRecentCommit.txt
