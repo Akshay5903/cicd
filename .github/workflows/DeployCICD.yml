@@ -27,33 +27,10 @@ jobs:
           persist-credentials: false # otherwise, the token used is the GITHUB_TOKEN, instead of your personal token
           fetch-depth: 0 # otherwise, you will failed to push refs to dest repo
           
-      - uses: actions/checkout@commitBranch
+      - uses: actions/checkout@v2
         with:
-          token: ${{secrets.PAT}}
+          ref: commitBranch
       - name: setting first github successtoken
         run: |
           ls -a
-          mkdir -p commitBranchCheckout
-          cd commitBranchCheckout
-          git config --global user.email "akshay.shar2019@gmail.com"
-          git config --global user.name "Akshay5903"
-          echo cloning..
-          git clone https://github.com/Akshay5903/cicd.git
-          echo changing dircetory to cicd
-          cd cicd
-          echo check commit branch
-          git checkout commitBranch
-          echo pull
-          git pull
           
-          
-          echo writing to file
-          echo "19bcdeb8f93f9351cf88ae019704a587cb4c6419" > recentSuccessfulCommit.TXT
-          echo staging
-          git add --all
-          echo commit all
-          git commit -m "Recent Commit Add"
-          git remote set-url origin git@github.com:Akshay5903/cicd.git
-          echo pushing
-          git push origin main
-        
