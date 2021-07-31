@@ -1,6 +1,0 @@
-C:\Users\nishi\Desktop\git main\cicd\force-app\main\default\classes\NewClass.cls:1:	ApexDoc:	Missing ApexDoc comment
-C:\Users\nishi\Desktop\git main\cicd\force-app\main\default\classes\NewClass.cls:2:	ApexDoc:	Missing ApexDoc comment
-C:\Users\nishi\Desktop\git main\cicd\force-app\main\default\classes\NewClass.cls:3:	DebugsShouldUseLoggingLevel:	Calls to System.debug should specify a logging level.
-C:\Users\nishi\Desktop\git main\cicd\force-app\main\default\classes\TestClass.cls:1:	ApexDoc:	Missing ApexDoc comment
-C:\Users\nishi\Desktop\git main\cicd\force-app\main\default\classes\TestClass.cls:3:	ApexDoc:	Missing ApexDoc comment
-C:\Users\nishi\Desktop\git main\cicd\force-app\main\default\classes\TestClass.cls:6:	UnusedLocalVariable:	Variable 'accList' defined but not used
