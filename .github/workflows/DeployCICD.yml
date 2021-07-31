@@ -47,6 +47,7 @@ jobs:
           PREVRSA=$(<$SCRIPTFILE)
           echo prev Commit $PREVRSA
           echo current Commit $GITHUB_SHA
+          git diff-tree --no-commit-id --name-only -r $GITHUB_SHA $PREVRSA
           node_modules/sfdx-cli/bin/run sgd:source:delta --to $GITHUB_SHA --from $PREVRSA --output "."
           ls -a
           cd package
