@@ -32,9 +32,20 @@ jobs:
           #cd recentCommit
           cp recentSuccessfulCommit.TXT /home/runner/work/lastRecentCommit.txt
       - uses: actions/checkout@v2
+      - name: Install Salesforce CLI
+        run: |
+          npm install sfdx-cli
+          node_modules/sfdx-cli/bin/run --version
+          node_modules/sfdx-cli/bin/run plugins --core
       - name: Checkout
         run: |
-          cd /home/runner/work
+          #cd /home/runner/work
+          echo y | node_modules/sfdx-cli/bin/run plugins:install sfdx-git-delta
+          SCRIPTFILE='/home/runner/work/lastRecentCommit.txt'
+          PREVRSA=$(<$SCRIPTFILE)
+          
+          sfdx sgd:source:delta --to $GITHUB_SHA --from $PREVRSA --output "."
+          sfdx force:source:convert --manifest=home/runner/work/cicd/cicd/package/package.xml --outputdir=convert
           ls -a
 #       - name: Install Salesforce CLI
 #         run: |
