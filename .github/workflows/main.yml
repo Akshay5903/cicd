@@ -56,21 +56,21 @@ jobs:
 
                   if [[ $CFILE == *"src/"*"."* ]]
                   then
-                          echo if1
+                          
                           tar cf - "../$CFILE"* | (cd ../$DIRDEPLOY; tar xf -)
                   fi
                   if [[ $CFILE == *"-meta.xml" ]]
                   then
-                          echo if2
+                          
                           ADDFILE=$CFILE
                           ADDFILE="${ADDFILE%-meta.xml*}"
                           tar cf - ../$ADDFILE | (cd ../$DIRDEPLOY; tar xf -)
                   fi
                   if [[ $CFILE == *"/aura/"*"."* ]]
                   then
-                          echo if45
+                          
                           DIR=$(dirname "$CFILE")
-                          echo ppppp $DIR
+                          
                           tar cf - ../$DIR | (cd ../$DIRDEPLOY; tar xf -)
                   fi
 
@@ -121,10 +121,10 @@ jobs:
                           *.workflow*) TYPENAME="Workflow";;
                           *) TYPENAME="UNKNOWN TYPE";;
                   esac
-                  echo $TYPENAME
+                  
                   if [[ "$TYPENAME" != "UNKNOWN TYPE" ]]
                   then
-                          echo if3
+                          
                           case "$CFILE"
                           in
                                   src/email/*)  ENTITY="${CFILE#src/email/}";;
@@ -140,9 +140,13 @@ jobs:
                           else
                                   ENTITY="${ENTITY%.*}"
                           fi
-                          echo Akshay Code
+                          
                           echo TypeName $TYPENAME
                           echo Entity $ENTITY
+                          echo "$TYPENAME_$ENTITY" >> processedItems.txt
+                          echo ======Processed Item=====
+                          cat processedItems.txt
+                          echo ======Processed Item End=====
                           cd /home/runner/work/cicd/cicd/src
                           pwd
                           if grep -Fq "&amp;amp;lt;name&amp;amp;gt;$TYPENAME&amp;amp;lt;/name&amp;amp;gt;" package.xml
