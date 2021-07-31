@@ -34,7 +34,6 @@ jobs:
         run: |
           mkdir -p commitBranchCheckout
           cd commitBranchCheckout
-          echo "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" > token.txt
           git config --global user.email "akshay.shar2019@gmail.com"
           git config --global user.name "Akshay5903"
           echo cloning..
