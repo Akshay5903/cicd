@@ -30,10 +30,11 @@ jobs:
           pwd
           mkdir -p recentCommit
           #cd recentCommit
-          cp recentSuccessfulCommit.TXT ./recentCommit/lastRecentCommit.txt
+          cp recentSuccessfulCommit.TXT /home/runner/work/lastRecentCommit.txt
       - uses: actions/checkout@v2
       - name: Checkout
         run: |
+          cd /home/runner/work
           ls -a
 #       - name: Install Salesforce CLI
 #         run: |
