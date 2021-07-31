@@ -43,8 +43,12 @@ jobs:
           echo y | node_modules/sfdx-cli/bin/run plugins:install sfdx-git-delta
           SCRIPTFILE='/home/runner/work/lastRecentCommit.txt'
           PREVRSA=$(<$SCRIPTFILE)
-          
+          echo prev Commit $PREVRSA
+          echo current Commit $GITHUB_SHA
           node_modules/sfdx-cli/bin/run sgd:source:delta --to $GITHUB_SHA --from $PREVRSA --output "."
+          ls -a
+          cd package
+          cat package.xml
           node_modules/sfdx-cli/bin/run force:source:convert --manifest=/home/runner/work/cicd/cicd/package/package.xml --outputdir=convert
           ls -a
 #       - name: Install Salesforce CLI
