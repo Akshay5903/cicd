@@ -23,4 +23,15 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
       - name: setting first github successtoken
-        run: echo "19bcdeb8f93f9351cf88ae019704a587cb4c6419" > /github/home/lastSuccessfullCommit.txt
+        run: |
+          mkdir -p commitBranchCheckout
+          cd commitBranchCheckout
+          git clone https://github.com/Akshay5903/cicd.git
+          cd cicd
+          git checkout commitBranch
+          git pull
+          echo "19bcdeb8f93f9351cf88ae019704a587cb4c6419" > recentSuccessfulCommit.TXT
+          git add --all
+          git commit -m "Recent Commit Add"
+          git push
+        
