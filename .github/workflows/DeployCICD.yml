@@ -35,7 +35,7 @@ jobs:
           mkdir -p commitBranchCheckout
           cd commitBranchCheckout
           echo cloning..
-          git clone https://github.com/Akshay5903/cicd.git
+          git clone git@github.com:Akshay5903/cicd.git
           echo changing dircetory to cicd
           cd cicd
           echo check commit branch
