@@ -45,5 +45,5 @@ jobs:
           git commit -m "Recent Commit Add"
           git remote set-url origin git@github.com:Akshay5903/cicd.git
           echo pushing
-          git push
+          git push origin master
         
