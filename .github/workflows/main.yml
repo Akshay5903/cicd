@@ -53,7 +53,7 @@ jobs:
           cd src
           git diff --name-only origin/main..HEAD | \
           while read -r CFILE; do
-
+                  echo 1
                   if [[ $CFILE == *"src/"*"."* ]]
                   then
                           
@@ -121,7 +121,7 @@ jobs:
                           *.workflow*) TYPENAME="Workflow";;
                           *) TYPENAME="UNKNOWN TYPE";;
                   esac
-                  
+                  echo $TYPENAME
                   if [[ "$TYPENAME" != "UNKNOWN TYPE" ]]
                   then
                           
