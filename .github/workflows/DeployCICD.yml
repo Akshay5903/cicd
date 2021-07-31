@@ -32,6 +32,8 @@ jobs:
           #cd recentCommit
           cp recentSuccessfulCommit.TXT /home/runner/work/lastRecentCommit.txt
       - uses: actions/checkout@v2
+         with:
+          ref: main
       - name: Install Salesforce CLI
         run: |
           npm install sfdx-cli
