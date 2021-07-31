@@ -33,4 +33,9 @@ jobs:
       - name: setting first github successtoken
         run: |
           ls -a
+          echo "19bcdeb8f93f9351cf88ae019704a587cb4c6419" > recentSuccessfulCommit.TXT
+          git add --all
+          git commit -m "Push All"
+          git push
+          
           
