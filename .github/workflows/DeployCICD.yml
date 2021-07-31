@@ -28,8 +28,8 @@ jobs:
         run: |
           echo y | node_modules/sfdx-cli/bin/run plugins:install sfdx-git-delta
           cp recentSuccessfulCommit.TXT lastRecentCommit.txt
+      - uses: actions/checkout@v2
       - name: Checkout
-        uses: actions/checkout@v2
         run: |
           ls -a
 #       - name: Install Salesforce CLI
