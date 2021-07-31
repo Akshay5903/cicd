@@ -146,6 +146,7 @@ jobs:
                           c="${TYPENAME}_${ENTITY}"
                           
                           cd /home/runner/work/cicd/cicd/src
+                          echo "" >> processedItems.txt
                           pwd
                           if [ ! -z $(grep "$c" processedItems.txt) ];
                             then
