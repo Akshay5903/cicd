@@ -43,6 +43,7 @@ jobs:
           git add --all
           echo commit all
           git commit -m "Recent Commit Add"
+          git remote set-url origin git@github.com:Akshay5903/cicd.git
           echo pushing
           git push
         
