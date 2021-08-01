@@ -46,7 +46,8 @@ jobs:
           PREVRSA=$(<$SCRIPTFILE)
           echo prev Commit $PREVRSA
           echo current Commit $GITHUB_SHA
-          git fetch
+          git fetch --tags --force --progress -- https://github.com/Akshay5903/cicd.git +refs/heads/*:refs/remotes/origin/* # timeout=10
+          git rev-parse "refs/remotes/origin/main^{commit}" # timeout=10
           git pull
           git diff-tree -r $GITHUB_SHA $PREVRSA
           echo y | node_modules/sfdx-cli/bin/run plugins:install sfdx-git-delta
