@@ -49,7 +49,7 @@ jobs:
           git fetch --tags --force --progress -- https://github.com/Akshay5903/cicd.git +refs/heads/*:refs/remotes/origin/* # timeout=10
           git rev-parse "refs/remotes/origin/main^{commit}" # timeout=10
           #git pull
-          git diff-tree -r $GITHUB_HEAD_REF 4b6e64a5334ba6ec76427d3b37d14727fbcdc647 
+          git diff-tree -r $GITHUB_HEAD_REF $PREVRSA 
           echo y | node_modules/sfdx-cli/bin/run plugins:install sfdx-git-delta
           
           git diff-tree --no-commit-id --name-only -r ${{ github.sha }} $PREVRSA
