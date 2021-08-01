@@ -67,6 +67,17 @@ jobs:
           cd convert
           ls -a
           cat package.xml
+      - name: Authenticating Target Org
+        run: |
+          echo "${SALESFORCE_JWT_SECRET_KEY}" > server.key
+          node_modules/sfdx-cli/bin/run force:auth:jwt:grant --clientid ${{ secrets.SALESFORCE_CONSUMER_KEY }} --jwtkeyfile server.key --username ${{ secrets.SALESFORCE_DEVHUB_USERNAME}} --setdefaultdevhubusername -a devhub
+        env:
+          SALESFORCE_JWT_SECRET_KEY: ${{ secrets.SALESFORCE_JWT_SECRET_KEY }}
+      - name: Validating Deployment
+        run: |
+          pwd
+          ls -a
+          node_modules/sfdx-cli/bin/run force:source:deploy -x /home/runner/work/cicd/cicd/convert/finalpackage.xml -u ${{ secrets.SALESFORCE_DEVHUB_USERNAME}} --checkonly 
 #       - name: Install Salesforce CLI
 #         run: |
 #           npm install sfdx-cli
