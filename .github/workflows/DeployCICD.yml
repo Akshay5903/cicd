@@ -42,11 +42,13 @@ jobs:
       - name: Checkout
         run: |
           #cd /home/runner/work
-          echo y | node_modules/sfdx-cli/bin/run plugins:install sfdx-git-delta
           SCRIPTFILE='/home/runner/work/lastRecentCommit.txt'
           PREVRSA=$(<$SCRIPTFILE)
           echo prev Commit $PREVRSA
           echo current Commit $GITHUB_SHA
+          git diff-tree --no-commit-id --name-only -r $GITHUB_SHA $PREVRSA
+          echo y | node_modules/sfdx-cli/bin/run plugins:install sfdx-git-delta
+          
           git diff-tree --no-commit-id --name-only -r $GITHUB_SHA $PREVRSA
           node_modules/sfdx-cli/bin/run sgd:source:delta --to $GITHUB_SHA --from $PREVRSA --output "."
           ls -a
