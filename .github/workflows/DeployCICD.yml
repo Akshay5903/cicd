@@ -46,6 +46,7 @@ jobs:
           PREVRSA=$(<$SCRIPTFILE)
           echo prev Commit $PREVRSA
           echo current Commit $GITHUB_SHA
+          git fsck
           git fetch --tags --force --progress -- https://github.com/Akshay5903/cicd.git +refs/heads/*:refs/remotes/origin/* # timeout=10
           git rev-parse "refs/remotes/origin/main^{commit}" # timeout=10
           #git pull
