@@ -23,16 +23,18 @@ jobs:
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - name: cheking out commit branch
       - uses: actions/checkout@v2
         with:
           ref: commitBranch
-      - name: setting first github successtoken
+      - name: getting last successful commit
         run: |
           #echo y | node_modules/sfdx-cli/bin/run plugins:install sfdx-git-delta
           pwd
           mkdir -p recentCommit
           #cd recentCommit
           cp recentSuccessfulCommit.TXT /home/runner/work/lastRecentCommit.txt
+      - name: cheking out main branch
       - uses: actions/checkout@v2
         with:
           ref: main
@@ -42,7 +44,7 @@ jobs:
           npm install sfdx-cli
           node_modules/sfdx-cli/bin/run --version
           node_modules/sfdx-cli/bin/run plugins --core
-      - name: Checkout
+      - name: Creating package.xml for deployment
         run: |
           #cd /home/runner/work
           SCRIPTFILE='/home/runner/work/lastRecentCommit.txt'
@@ -73,7 +75,8 @@ jobs:
           node_modules/sfdx-cli/bin/run force:auth:jwt:grant --clientid ${{ secrets.SALESFORCE_CONSUMER_KEY }} --jwtkeyfile server.key --username ${{ secrets.SALESFORCE_DEVHUB_USERNAME}} --setdefaultdevhubusername -a devhub
         env:
           SALESFORCE_JWT_SECRET_KEY: ${{ secrets.SALESFORCE_JWT_SECRET_KEY }}
-      - name: Validating Deployment
+      
+      - name: Performing Deployment
         run: |
           pwd
           ls -a
@@ -81,6 +84,7 @@ jobs:
           pwd
           ls -a
           ../node_modules/sfdx-cli/bin/run force:source:deploy -x /home/runner/work/cicd/cicd/convert/package.xml -u ${{ secrets.SALESFORCE_DEVHUB_USERNAME}} 
+      - name: saving current commit
       - uses: actions/checkout@v2
         with:
           ref: commitBranch
