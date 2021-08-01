@@ -23,7 +23,7 @@ jobs:
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - name: cheking out commit branch
+      #- name: cheking out commit branch
       - uses: actions/checkout@v2
         with:
           ref: commitBranch
@@ -34,7 +34,7 @@ jobs:
           mkdir -p recentCommit
           #cd recentCommit
           cp recentSuccessfulCommit.TXT /home/runner/work/lastRecentCommit.txt
-      - name: cheking out main branch
+      #- name: cheking out main branch
       - uses: actions/checkout@v2
         with:
           ref: main
@@ -84,7 +84,7 @@ jobs:
           pwd
           ls -a
           ../node_modules/sfdx-cli/bin/run force:source:deploy -x /home/runner/work/cicd/cicd/convert/package.xml -u ${{ secrets.SALESFORCE_DEVHUB_USERNAME}} 
-      - name: saving current commit
+      #- name: saving current commit
       - uses: actions/checkout@v2
         with:
           ref: commitBranch
