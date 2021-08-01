@@ -35,11 +35,11 @@ jobs:
         with:
           ref: main
           fetch-depth: 0
-#       - name: Install Salesforce CLI
-#         run: |
-#           npm install sfdx-cli
-#           node_modules/sfdx-cli/bin/run --version
-#           node_modules/sfdx-cli/bin/run plugins --core
+      - name: Install Salesforce CLI
+        run: |
+          npm install sfdx-cli
+          node_modules/sfdx-cli/bin/run --version
+          node_modules/sfdx-cli/bin/run plugins --core
       - name: Checkout
         run: |
           #cd /home/runner/work
