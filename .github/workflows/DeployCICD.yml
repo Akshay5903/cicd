@@ -61,8 +61,11 @@ jobs:
           ls -a
           cd package
           cat package.xml
-          #node_modules/sfdx-cli/bin/run force:source:convert --manifest=/home/runner/work/cicd/cicd/package/package.xml --outputdir=convert
+          node_modules/sfdx-cli/bin/run force:source:convert --manifest=/home/runner/work/cicd/cicd/package/package.xml --outputdir=convert
           ls -a
+          cd convert
+          ls -a
+          cat package.xml
 #       - name: Install Salesforce CLI
 #         run: |
 #           npm install sfdx-cli
