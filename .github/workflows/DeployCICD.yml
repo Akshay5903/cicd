@@ -61,6 +61,7 @@ jobs:
           ls -a
           cd package
           cat package.xml
+          cd ..
           node_modules/sfdx-cli/bin/run force:source:convert --manifest=/home/runner/work/cicd/cicd/package/package.xml --outputdir=convert
           ls -a
           cd convert
