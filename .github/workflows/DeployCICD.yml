@@ -80,7 +80,17 @@ jobs:
           cd convert
           pwd
           ls -a
-          ../node_modules/sfdx-cli/bin/run force:source:deploy -x /home/runner/work/cicd/cicd/convert/package.xml -u ${{ secrets.SALESFORCE_DEVHUB_USERNAME}} 
+      - uses: actions/checkout@v2
+        with:
+          ref: commitBranch
+      - name: setting first github successtoken
+        run: |
+          echo $GITHUB_SHA > recentSuccessfulCommit.TXT
+          git config --global user.email "akshay.shar2019@gmail.com"
+          git config --global user.name "Akshay5903"
+          git add --all
+          git commit -m "Push All"
+          git push
 #       - name: Install Salesforce CLI
 #         run: |
 #           npm install sfdx-cli
