@@ -79,6 +79,7 @@ jobs:
           ls -a
           cd convert
           pwd
+          ls -a
           node_modules/sfdx-cli/bin/run force:source:deploy -x /home/runner/work/cicd/cicd/convert/package.xml -u ${{ secrets.SALESFORCE_DEVHUB_USERNAME}} --checkonly 
 #       - name: Install Salesforce CLI
 #         run: |
