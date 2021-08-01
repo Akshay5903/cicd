@@ -46,7 +46,7 @@ jobs:
           PREVRSA=$(<$SCRIPTFILE)
           echo prev Commit $PREVRSA
           echo current Commit $GITHUB_SHA
-          echo 'git diff-tree --no-commit-id --name-only -r $GITHUB_SHA $PREVRSA'
+          echo "git diff-tree --no-commit-id --name-only -r '$GITHUB_SHA' '$PREVRSA'"
           echo y | node_modules/sfdx-cli/bin/run plugins:install sfdx-git-delta
           
           git diff-tree --no-commit-id --name-only -r $GITHUB_SHA $PREVRSA
