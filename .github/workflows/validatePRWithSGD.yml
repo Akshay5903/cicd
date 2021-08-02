@@ -29,7 +29,7 @@ jobs:
           
       - name: Install Salesforce CLI
         run: |
-          echo ${GITHUB_REF#refs/heads/}
+          echo ${{github.event.pull_request.head.ref}}
           #echo ${BRANCH_NAME}
           npm install sfdx-cli
           node_modules/sfdx-cli/bin/run --version
