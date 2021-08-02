@@ -29,8 +29,8 @@ jobs:
           
       - name: Install Salesforce CLI
         run: |
-          echo "::set-env name=BRANCH_NAME::$(echo ${GITHUB_REF#refs/heads/})"
-          echo ${BRANCH_NAME}
+          echo ${GITHUB_REF#refs/heads/}
+          #echo ${BRANCH_NAME}
           npm install sfdx-cli
           node_modules/sfdx-cli/bin/run --version
           node_modules/sfdx-cli/bin/run plugins --core
