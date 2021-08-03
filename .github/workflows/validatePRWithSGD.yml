@@ -192,7 +192,7 @@ jobs:
           cat finalpackage.xml
           if [ -z "$(ls -A /home/runner/work/cicd/cicd/pmdClass)" ]; 
           then
-              echo "Empty"
+              echo "No Apex Class Changes Found"
           else
               cd /home/runner/work/cicd/cicd/pmd-bin-6.36.0/bin          
               bash run.sh pmd -d /home/runner/work/cicd/cicd/pmdClass -R /home/runner/work/cicd/cicd/pmd-bin-6.36.0/lib/ruleset.xml -f text -reportfile /home/runner/work/cicd/cicd/pmdClass/report39.txt -failOnViolation false 
