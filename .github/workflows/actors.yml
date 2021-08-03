@@ -33,7 +33,7 @@ jobs:
       # Runs a set of commands using the runners shell
       - name: Run a multi-line script
         run: |
-          echo Head Commit ${{github.event.pull_request.head_commit.author.email}}
+          echo Head Commit ${{github.event.pusher.email}}
           echo Commitor ${{github.event.push.head_commit.commiter.email}}
           echo Sender ${{github.event.push.sender.email}}
           echo Commitor ${{github.event.push.commit.email}}
