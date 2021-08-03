@@ -86,7 +86,7 @@ jobs:
           pwd
           ls -a
           ../node_modules/sfdx-cli/bin/run force:source:deploy -x /home/runner/work/cicd/cicd/convert/package.xml -u ${{ secrets.SALESFORCE_DEVHUB_USERNAME}} > deploymentResult.txt
-          sendemail -l email.log -f "fraternizecompany@gmail.com" -u "PMD Results" -t "${{github.event.pusher.email}},akshay.shar2021@gmail.com" -s "smtp.gmail.com:587" -o tls=yes -xu "fraternizecompany@gmail.com" -xp "kwldmaxyodshqsdl" -o message-file="/home/runner/work/cicd/cicd/convert/deploymentResult.txt"
+          sendemail -l email.log -f "fraternizecompany@gmail.com" -u "Target org deployment results" -t "${{github.event.pusher.email}},akshay.shar2021@gmail.com" -s "smtp.gmail.com:587" -o tls=yes -xu "fraternizecompany@gmail.com" -xp "kwldmaxyodshqsdl" -o message-file="/home/runner/work/cicd/cicd/convert/deploymentResult.txt"
       #- name: saving current commit
       - uses: actions/checkout@v2
         with:
