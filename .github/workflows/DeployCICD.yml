@@ -78,6 +78,8 @@ jobs:
       
       - name: Performing Deployment
         run: |
+          sudo apt-get update
+          sudo apt-get install sendemail
           pwd
           ls -a
           cd convert
