@@ -196,9 +196,7 @@ jobs:
           cd /home/runner/work/cicd/cicd/pmdClass
           cat report39.txt
       - uses: actions/checkout@v2
-        with:
-          ref: ${{github.event.pull_request.head.ref}}
-          fetch-dept: 0
+        
         
       - name: Calculating Diffs
         shell: bash
