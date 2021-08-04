@@ -175,13 +175,15 @@ jobs:
           echo "PMD Results" > /home/runner/work/EmailBody.txt
           if [ -z "$(ls -A /home/runner/work/cicd/cicd/pmdClass)" ]; 
           then
+              echo EMPTTYYYY
+              echo "No Apex Classes For PMD" >> /home/runner/work/EmailBody.txt
+          else
+              echo Not Emptyyyy
               cd /home/runner/work/cicd/cicd/pmd-bin-6.36.0/bin          
               bash run.sh pmd -d /home/runner/work/cicd/cicd/pmdClass -R /home/runner/work/cicd/cicd/pmd-bin-6.36.0/lib/ruleset.xml -f text -reportfile /home/runner/work/cicd/cicd/pmdClass/report39.txt -failOnViolation false 
               cd /home/runner/work/cicd/cicd/pmdClass
               cat report39.txt >> /home/runner/work/EmailBody.txt
               #sendemail -l email.log -f "fraternizecompany@gmail.com" -u "PMD Results ${{github.event.pull_request.head.ref}}" -t "${{github.event.pusher.email}},akshay.shar2021@gmail.com" -s "smtp.gmail.com:587" -o tls=yes -xu "fraternizecompany@gmail.com" -xp "kwldmaxyodshqsdl" -o message-file="/home/runner/work/cicd/cicd/pmdClass/report39.txt"
-          else
-              echo "No Apex Classes For PMD" >> /home/runner/work/EmailBody.txt
           fi
           echo "=================================================================" >> /home/runner/work/EmailBody.txt
       - uses: actions/checkout@v2
