@@ -146,7 +146,7 @@ jobs:
                           pwd
                           if [ ! -z $(grep "$c" processedItems.txt) ];
                             then
-                              
+                              echo "Item Processed Already"
                             else
                               
                               if grep -Fq "&amp;amp;lt;name&amp;amp;gt;$TYPENAME&amp;amp;lt;/name&amp;amp;gt;" package.xml
