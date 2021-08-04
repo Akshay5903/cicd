@@ -28,12 +28,7 @@ jobs:
         with:
           ref: commitBranch
       - name: Fetching last successful commit from commitBranch
-        run: |
-          #echo y | node_modules/sfdx-cli/bin/run plugins:install sfdx-git-delta
-          pwd
-          mkdir -p recentCommit
-          #cd recentCommit
-          cp recentSuccessfulCommit.TXT /home/runner/work/lastRecentCommit.txt
+        run: cp recentSuccessfulCommit.TXT /home/runner/work/lastRecentCommit.txt
       #- name: cheking out main branch
       - uses: actions/checkout@v2
         with:
@@ -49,26 +44,9 @@ jobs:
           #cd /home/runner/work
           SCRIPTFILE='/home/runner/work/lastRecentCommit.txt'
           PREVRSA=$(<$SCRIPTFILE)
-          echo prev Commit $PREVRSA
-          echo current Commit $GITHUB_SHA
-          git fsck
-          git fetch --tags --force --progress -- https://github.com/Akshay5903/cicd.git +refs/heads/*:refs/remotes/origin/* # timeout=10
-          git rev-parse "refs/remotes/origin/main^{commit}" # timeout=10
-          #git pull
-          git diff-tree -r $GITHUB_HEAD_REF $PREVRSA 
           echo y | node_modules/sfdx-cli/bin/run plugins:install sfdx-git-delta
-          
-          git diff-tree --no-commit-id --name-only -r ${{ github.sha }} $PREVRSA
           node_modules/sfdx-cli/bin/run sgd:source:delta --to $GITHUB_SHA --from $PREVRSA --output "."
-          ls -a
-          cd package
-          cat package.xml
-          cd ..
           node_modules/sfdx-cli/bin/run force:source:convert --manifest=/home/runner/work/cicd/cicd/package/package.xml --outputdir=convert
-          ls -a
-          cd convert
-          ls -a
-          cat package.xml
       - name: Authenticating Target Org
         run: |
           echo "${SALESFORCE_JWT_SECRET_KEY}" > server.key
@@ -80,11 +58,7 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install sendemail
-          pwd
-          ls -a
           cd convert
-          pwd
-          ls -a
           ../node_modules/sfdx-cli/bin/run force:source:deploy -x /home/runner/work/cicd/cicd/convert/package.xml -u ${{ secrets.SALESFORCE_DEVHUB_USERNAME}} > deploymentResult.txt
           sendemail -l email.log -f "fraternizecompany@gmail.com" -u "Target org deployment results" -t "${{github.event.pusher.email}},akshay.shar2021@gmail.com" -s "smtp.gmail.com:587" -o tls=yes -xu "fraternizecompany@gmail.com" -xp "kwldmaxyodshqsdl" -o message-file="/home/runner/work/cicd/cicd/convert/deploymentResult.txt"
       #- name: saving current commit
@@ -99,33 +73,3 @@ jobs:
           git add --all
           git commit -m "Push All"
           git push
-#       - name: Install Salesforce CLI
-#         run: |
-#           npm install sfdx-cli
-#           node_modules/sfdx-cli/bin/run --version
-#           node_modules/sfdx-cli/bin/run plugins --core  
-          
-#       - uses: actions/checkout@v2
-#         with:
-#           ref: commitBranch
-#       - name: setting first github successtoken
-#         run: |
-#           echo y | node_modules/sfdx-cli/bin/run plugins:install sfdx-git-delta
-#           cp recentSuccessfulCommit.TXT lastRecentCommit.txt
-#           rm -rf C:/Windows/System32/config/systemprofile/AppData/Local/Jenkins/.jenkins/workspace/CICDPipeline/package
-#           echo y | sfdx plugins:install sfdx-git-delta
-#           sfdx sgd:source:delta --to $LCOMMIT --from $PREVRSA --output "."
-#           echo removing existing deployment folder
-#           rm -rf C:/Windows/System32/config/systemprofile/AppData/Local/Jenkins/.jenkins/workspace/CICDPipeline/convert
-#           echo creating Deployment Package
-#           sfdx force:source:convert --manifest=C:/Windows/System32/config/systemprofile/AppData/Local/Jenkins/.jenkins/workspace/CICDPipeline/package/package.xml --outputdir=convert
-
-#           ls -a
-#           echo "19bcdeb8f93f9351cf88ae019704a587cb4c6419" > recentSuccessfulCommit.TXT
-#           git config --global user.email "akshay.shar2019@gmail.com"
-#           git config --global user.name "Akshay5903"
-#           git add --all
-#           git commit -m "Push All"
-#           git push
-          
-          
