@@ -223,7 +223,27 @@ jobs:
           cd convert
           echo Performing Test deployment noww
           ../node_modules/sfdx-cli/bin/run force:source:deploy -x /home/runner/work/cicd/cicd/convert/package.xml -u ${{ secrets.SALESFORCE_DEVHUB_USERNAME}}  --checkonly --loglevel ERROR > deploymentCheckResult.txt || true
-          cat $HOME/.sfdx/sfdx.log
+          pwd
+          ls -a
+          cd..
+          pwd
+          ls -a
+          cd..
+          pwd
+          ls -a
+          cd..
+          pwd
+          ls -a
+          cd..
+          pwd
+          ls -a
+          cd..
+          pwd
+          ls -a
+          cd..
+          pwd
+          ls -a
+          
           #node_modules/sfdx-cli/bin/run force:source:deploy -x /home/runner/work/cicd/cicd/src/finalpackage.xml -u ${{ secrets.SALESFORCE_DEVHUB_USERNAME}} --checkonly --loglevel > deploymentCheckResult.txt
           cd ..
           echo "Deployment Validation Results" >> /home/runner/work/EmailBody.txt
