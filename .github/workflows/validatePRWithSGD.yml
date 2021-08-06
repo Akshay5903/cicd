@@ -225,22 +225,22 @@ jobs:
           ../node_modules/sfdx-cli/bin/run force:source:deploy -x /home/runner/work/cicd/cicd/convert/package.xml -u ${{ secrets.SALESFORCE_DEVHUB_USERNAME}}  --checkonly --loglevel ERROR > deploymentCheckResult.txt || true
           pwd
           ls -a
-          cd..
+          cd ..
+          pwd
+          ls -a
+          cd ..
+          pwd
+          ls -a
+          cd ..
+          pwd
+          ls -a
+          cd ..
           pwd
           ls -a
           cd..
           pwd
           ls -a
-          cd..
-          pwd
-          ls -a
-          cd..
-          pwd
-          ls -a
-          cd..
-          pwd
-          ls -a
-          cd..
+          cd ..
           pwd
           ls -a
           
