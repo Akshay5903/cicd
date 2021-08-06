@@ -225,18 +225,13 @@ jobs:
           ../node_modules/sfdx-cli/bin/run force:source:deploy -x /home/runner/work/cicd/cicd/convert/package.xml -u ${{ secrets.SALESFORCE_DEVHUB_USERNAME}}  --checkonly > deploymentCheckResult.txt || true
           echo Showing Deployment Results
           cat deploymentCheckResult.txt
-          echo cicd sfdx
-          ls -a -d /home/runner/work/cicd/cicd/.sfdx
-          cat /home/runner/work/cicd/cicd/.sfdx/sfdx.log
-          echo home sfdx
-          ls -a -d /home/runner/.sfdx
-          cat /home/runner/.sfdx/sfdx.log
           
           #node_modules/sfdx-cli/bin/run force:source:deploy -x /home/runner/work/cicd/cicd/src/finalpackage.xml -u ${{ secrets.SALESFORCE_DEVHUB_USERNAME}} --checkonly --loglevel > deploymentCheckResult.txt
           cd ..
           echo "Deployment Validation Results" >> /home/runner/work/EmailBody.txt
           cat /home/runner/work/cicd/cicd/convert/deploymentCheckResult.txt >> /home/runner/work/EmailBody.txt
           echo "A&C Deployment Team" >> /home/runner/work/EmailBody.txt
+          cat /home/runner/work/EmailBody.txt
           
 #         if: ${{ failure() }}
 #       - run: |
