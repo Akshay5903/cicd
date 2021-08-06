@@ -224,7 +224,7 @@ jobs:
           echo Performing Test deployment noww
           ../node_modules/sfdx-cli/bin/run force:source:deploy -x /home/runner/work/cicd/cicd/convert/package.xml -u ${{ secrets.SALESFORCE_DEVHUB_USERNAME}}  --checkonly > deploymentCheckResult.txt
           
-          #node_modules/sfdx-cli/bin/run force:source:deploy -x /home/runner/work/cicd/cicd/src/finalpackage.xml -u ${{ secrets.SALESFORCE_DEVHUB_USERNAME}} --checkonly > deploymentCheckResult.txt
+          #node_modules/sfdx-cli/bin/run force:source:deploy -x /home/runner/work/cicd/cicd/src/finalpackage.xml -u ${{ secrets.SALESFORCE_DEVHUB_USERNAME}} --checkonly --loglevel > deploymentCheckResult.txt
           cd ..
           echo "Deployment Validation Results" >> /home/runner/work/EmailBody.txt
           cat /home/runner/work/cicd/cicd/convert/deploymentCheckResult.txt >> /home/runner/work/EmailBody.txt
