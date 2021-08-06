@@ -230,7 +230,7 @@ jobs:
           cat /home/runner/work/cicd/cicd/convert/deploymentCheckResult.txt >> /home/runner/work/EmailBody.txt
           echo "A&C Deployment Team" >> /home/runner/work/EmailBody.txt
           
-        if: failed()
+        if: ${{ failed() }}
       - run: |
           git show -s --format='%ae' HEAD > pullRequestInitiatorEmail.txt
           pullRequestInitiator=$(head -n 1 pullRequestInitiatorEmail.txt)
