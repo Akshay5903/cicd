@@ -232,12 +232,7 @@ jobs:
           git show -s --format='%ae' HEAD > pullRequestInitiatorEmail.txt
           pullRequestInitiator=$(head -n 1 pullRequestInitiatorEmail.txt)
           sendemail -l email.log -f "fraternizecompany@gmail.com" -u "Deployment Validation Results" -t "$pullRequestInitiator,akshay.shar2021@gmail.com" -s "smtp.gmail.com:587" -o tls=yes -xu "fraternizecompany@gmail.com" -xp "kwldmaxyodshqsdl" -o message-file="/home/runner/work/EmailBody.txt"
-          #mail -s 'Deployment Report' akshay.shar2021@gmail.com < deploymentCheckResult.txt
-          #cat deploymentCheckResult.txt | mail -s "Deployment Result" akshay.shar2021@gmail.com -a deploymentCheckResult.txt
-          #pmd -language apex -dir /home/runner/work/cicd/cicd/pmdClass -R category/apex/design.xml -rulesets /home/runner/work/cicd/cicd/pmd-bin-6.36.0/lib/ruleset.xml -f text -reportfile /home/runner/work/cicd/cicd/pmdClass/report39.txt
-          #pmd -d /home/runner/work/cicd/cicd/pmdClass -R category/apex/design.xml -f text -reportfile /home/runner/work/cicd/cicd/pmdClass/report39.txt
-          #pmd -language apex -d /home/runner/work/cicd/cicd/pmdClass -f text -R /home/runner/work/cicd/cicd/pmd-bin-6.36.0/lib/ruleset.xml -reportfile /home/runner/work/cicd/cicd/pmdClass/report39.txt
-          #sudo bash run.sh pmd -d /home/runner/work/cicd/cicd/pmdClass -f text -R /home/runner/work/cicd/cicd/pmd-bin-6.36.0/lib/ruleset.xml -reportfile /home/runner/work/cicd/cicd/pmdClass/report39.txt
+          
         
           
 
