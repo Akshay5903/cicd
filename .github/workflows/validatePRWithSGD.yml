@@ -232,7 +232,7 @@ jobs:
           cat /home/runner/work/cicd/cicd/convert/deploymentCheckResult.txt >> /home/runner/work/EmailBody.txt
           echo "A&C Deployment Team" >> /home/runner/work/EmailBody.txt
           cat /home/runner/work/EmailBody.txt
-          if [ 'grep 'Successfully validated the deployment' /home/runner/work/cicd/cicd/convert/deploymentCheckResult.txt' ];
+          if [ ! -z $(grep "Successfully validated the deployment"  /home/runner/work/cicd/cicd/convert/deploymentCheckResult.txt) ];
           then
             echo Deployment Check Successful
             git show -s --format='%ae' HEAD > pullRequestInitiatorEmail.txt
