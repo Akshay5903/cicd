@@ -202,7 +202,7 @@ jobs:
           node_modules/sfdx-cli/bin/run force:source:convert --manifest=/home/runner/work/cicd/cicd/package/package.xml --outputdir=convert
           cd convert
           echo Validating deployment now
-          ../node_modules/sfdx-cli/bin/run force:source:deploy -x /home/runner/work/cicd/cicd/convert/package.xml -u ${{ secrets.SALESFORCE_DEVHUB_USERNAME}}  --checkonly > deploymentCheckResult.txt || true
+          ../node_modules/sfdx-cli/bin/run force:source:deploy -x /home/runner/work/cicd/cicd/convert/package.xml -u ${{ secrets.SALESFORCE_DEVHUB_USERNAME}}  --checkonly --verbose > deploymentCheckResult.txt || true
           echo Showing Deployment Results
           cat deploymentCheckResult.txt
           
