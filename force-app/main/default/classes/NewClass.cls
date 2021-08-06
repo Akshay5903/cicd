@@ -1,6 +1,6 @@
 public with sharing class NewClass {
     public NewClass() {
-        System.debug('Testing hg'); njb
+        System.debug('Testing hg'); 
        
     }
 }
