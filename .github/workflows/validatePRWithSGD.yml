@@ -222,7 +222,7 @@ jobs:
           node_modules/sfdx-cli/bin/run force:source:convert --manifest=/home/runner/work/cicd/cicd/package/package.xml --outputdir=convert
           cd convert
           echo Performing Test deployment noww
-          ../node_modules/sfdx-cli/bin/run force:source:deploy -x /home/runner/work/cicd/cicd/convert/package.xml -u ${{ secrets.SALESFORCE_DEVHUB_USERNAME}}  --checkonly > deploymentCheckResult.txt
+          ../node_modules/sfdx-cli/bin/run force:source:deploy -x /home/runner/work/cicd/cicd/convert/package.xml -u ${{ secrets.SALESFORCE_DEVHUB_USERNAME}}  --checkonly > deploymentCheckResult.txt || true
           
           #node_modules/sfdx-cli/bin/run force:source:deploy -x /home/runner/work/cicd/cicd/src/finalpackage.xml -u ${{ secrets.SALESFORCE_DEVHUB_USERNAME}} --checkonly --loglevel > deploymentCheckResult.txt
           cd ..
@@ -230,12 +230,12 @@ jobs:
           cat /home/runner/work/cicd/cicd/convert/deploymentCheckResult.txt >> /home/runner/work/EmailBody.txt
           echo "A&C Deployment Team" >> /home/runner/work/EmailBody.txt
           
-        if: ${{ failure() }}
-      - run: |
-          cat $HOME/.sfdx/sfdx.log
-          git show -s --format='%ae' HEAD > pullRequestInitiatorEmail.txt
-          pullRequestInitiator=$(head -n 1 pullRequestInitiatorEmail.txt)
-          sendemail -l email.log -f "fraternizecompany@gmail.com" -u "Deployment Validation Results : ${{github.event.pull_request.head.ref}}" -t "$pullRequestInitiator,akshay.shar2021@gmail.com" -s "smtp.gmail.com:587" -o tls=yes -xu "fraternizecompany@gmail.com" -xp "kwldmaxyodshqsdl" -o message-file="/home/runner/work/EmailBody.txt"
+#         if: ${{ failure() }}
+#       - run: |
+#           cat $HOME/.sfdx/sfdx.log
+#           git show -s --format='%ae' HEAD > pullRequestInitiatorEmail.txt
+#           pullRequestInitiator=$(head -n 1 pullRequestInitiatorEmail.txt)
+#           sendemail -l email.log -f "fraternizecompany@gmail.com" -u "Deployment Validation Results : ${{github.event.pull_request.head.ref}}" -t "$pullRequestInitiator,akshay.shar2021@gmail.com" -s "smtp.gmail.com:587" -o tls=yes -xu "fraternizecompany@gmail.com" -xp "kwldmaxyodshqsdl" -o message-file="/home/runner/work/EmailBody.txt"
         
           
 
