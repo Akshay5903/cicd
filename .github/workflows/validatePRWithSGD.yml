@@ -223,6 +223,7 @@ jobs:
           cd convert
           echo Performing Test deployment noww
           ../node_modules/sfdx-cli/bin/run force:source:deploy -x /home/runner/work/cicd/cicd/convert/package.xml -u ${{ secrets.SALESFORCE_DEVHUB_USERNAME}}  --checkonly > deploymentCheckResult.txt || true
+          echo Showing Deployment Results
           cat deploymentCheckResult.txt
           echo cicd sfdx
           ls -a -d /home/runner/work/cicd/cicd/.sfdx
