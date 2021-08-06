@@ -32,10 +32,6 @@ jobs:
       - name: PMD Check with Package Creation
         shell: bash
         run: |
-          git show -s --format='%ae' HEAD
-      - name: PMD Check with Package Creation
-        shell: bash
-        run: |
           sudo apt-get update
           sudo apt-get install xmlstarlet
           sudo apt-get install sendemail
@@ -43,7 +39,6 @@ jobs:
           git diff --name-only origin/main..HEAD > mydiff
           mkdir -p src
           mkdir -p pmdClass
-          echo changing directoy to src
           cd src
           echo '<?xml version="1.0" encoding="UTF-8"?>
           <Package>
@@ -51,14 +46,12 @@ jobs:
           cd ..
           DIRDEPLOY=build/deploy
           if [ -d "$DIRDEPLOY" ]; then
-              echo Removing deploy folder
               rm -rf "$DIRDEPLOY"
           fi
           mkdir -p $DIRDEPLOY
           cd src
           git diff --name-only origin/main..HEAD | \
           while read -r CFILE; do
-                  echo $CFILE
                   if [[ $CFILE == *"src/"*"."* ]]
                   then
                           
@@ -201,8 +194,6 @@ jobs:
           git diff --name-only origin/main..HEAD 
       - name: Install Salesforce CLI
         run: |
-          echo ${{github.event.pull_request.head.ref}}
-          #echo ${BRANCH_NAME}
           npm install sfdx-cli
           node_modules/sfdx-cli/bin/run --version
           node_modules/sfdx-cli/bin/run plugins --core
@@ -221,7 +212,7 @@ jobs:
           node_modules/sfdx-cli/bin/run sgd:source:delta --to HEAD --from origin/main --output "."
           node_modules/sfdx-cli/bin/run force:source:convert --manifest=/home/runner/work/cicd/cicd/package/package.xml --outputdir=convert
           cd convert
-          echo Performing Test deployment noww
+          echo Validating deployment now
           ../node_modules/sfdx-cli/bin/run force:source:deploy -x /home/runner/work/cicd/cicd/convert/package.xml -u ${{ secrets.SALESFORCE_DEVHUB_USERNAME}}  --checkonly > deploymentCheckResult.txt || true
           echo Showing Deployment Results
           cat deploymentCheckResult.txt
@@ -231,10 +222,8 @@ jobs:
           echo "Deployment Validation Results" >> /home/runner/work/EmailBody.txt
           cat /home/runner/work/cicd/cicd/convert/deploymentCheckResult.txt >> /home/runner/work/EmailBody.txt
           echo "A&C Deployment Team" >> /home/runner/work/EmailBody.txt
-          cat /home/runner/work/EmailBody.txt
           git show -s --format='%ae' HEAD > pullRequestInitiatorEmail.txt
           pullRequestInitiator=$(head -n 1 pullRequestInitiatorEmail.txt)
-          #if [ ! -z $(grep "%Successfully validated the deployment%"  /home/runner/work/cicd/cicd/convert/deploymentCheckResult.txt) ];
           if grep -q "Successfully validated the deployment" /home/runner/work/cicd/cicd/convert/deploymentCheckResult.txt;
           then
             echo Deployment Check Successful
@@ -246,11 +235,3 @@ jobs:
             sendemail -l email.log -f "fraternizecompany@gmail.com" -u "Pull Request Validation Failed : ${{github.event.pull_request.head.ref}}" -t "$pullRequestInitiator,akshay.shar2021@gmail.com" -s "smtp.gmail.com:587" -o tls=yes -xu "fraternizecompany@gmail.com" -xp "kwldmaxyodshqsdl" -o message-file="/home/runner/work/EmailBody.txt"
             exit 1
           fi
-          
-#         if: ${{ failure() }}
-#       - run: |
-#           cat $HOME/.sfdx/sfdx.log
-          
-        
-          
-
