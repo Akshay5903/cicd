@@ -5,8 +5,6 @@ name: Validate Pull Request
 # Controls when the workflow will run
 on:
   # Triggers the workflow on push or pull request events but only for the main branch
-  #push:
-  #  branches: [ main ]
   pull_request:
     branches: [ main ]
     paths-ignore:
@@ -184,14 +182,6 @@ jobs:
           fi
           echo "=================================================================" >> /home/runner/work/EmailBody.txt
       - uses: actions/checkout@v2
-        
-        
-      - name: Calculating Diffs
-        shell: bash
-        run: |
-          sudo apt-get update
-          git fetch origin main
-          git diff --name-only origin/main..HEAD 
       - name: Install Salesforce CLI
         run: |
           npm install sfdx-cli
@@ -203,7 +193,6 @@ jobs:
           node_modules/sfdx-cli/bin/run force:auth:jwt:grant --clientid ${{ secrets.SALESFORCE_CONSUMER_KEY }} --jwtkeyfile server.key --username ${{ secrets.SALESFORCE_DEVHUB_USERNAME}} --setdefaultdevhubusername -a devhub
         env:
           SALESFORCE_JWT_SECRET_KEY: ${{ secrets.SALESFORCE_JWT_SECRET_KEY }}
-     
       - name: Validating Deployment
         shell: bash
         run: |
