@@ -1,5 +1,5 @@
 public with sharing class NewClass {
-    // gg
+    // ggm
     public NewClass() {
         System.debug('Testing ');
     }
