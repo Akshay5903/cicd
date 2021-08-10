@@ -1,0 +1,260 @@
+# This is a basic workflow to help you get started with Actions test
+
+name: Validate Pull Request
+
+# Controls when the workflow will run
+on:
+  # Triggers the workflow on push or pull request events but only for the main branch
+  #push:
+  #  branches: [ main ]
+  pull_request:
+    branches: [ main ]
+    paths-ignore:
+        - '**.yml'
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  build:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v2
+        with:
+          ref: ${{github.event.pull_request.head.ref}}
+          fetch-depth: 0
+      - name: PMD Check with Package Creation
+        shell: bash
+        run: |
+          sudo apt-get update
+          sudo apt-get install xmlstarlet
+          sudo apt-get install sendemail
+          pwd
+          git fetch origin main
+          git diff --name-only origin/main..HEAD > mydiff
+          echo "mydiff = "
+          cat mydiff
+          mkdir -p src
+          mkdir -p pmdClass
+          echo changing directoy to src
+          cd src
+          echo '<?xml version="1.0" encoding="UTF-8"?>
+          <Package>
+          </Package>' > package.xml
+          cd ..
+          DIRDEPLOY=build/deploy
+          if [ -d "$DIRDEPLOY" ]; then
+              echo Removing deploy folder
+              rm -rf "$DIRDEPLOY"
+          fi
+          mkdir -p $DIRDEPLOY
+          pwd
+          cd src
+          git diff --name-only origin/main..HEAD | \
+          while read -r CFILE; do
+                  echo $CFILE
+                  if [[ $CFILE == *"src/"*"."* ]]
+                  then
+                          
+                          tar cf - "../$CFILE"* | (cd ../$DIRDEPLOY; tar xf -)
+                  fi
+                  if [[ $CFILE == *"-meta.xml" ]]
+                  then
+                          
+                          ADDFILE=$CFILE
+                          ADDFILE="${ADDFILE%-meta.xml*}"
+                          echo akshay ppp $ADDFILE
+                          #tar cf - ../$ADDFILE | (cd ../$DIRDEPLOY; tar xf -)
+                  fi
+                  if [[ $CFILE == *"/aura/"*"."* ]]
+                  then
+                          
+                          DIR=$(dirname "$CFILE")
+                          
+                          tar cf - ../$DIR | (cd ../$DIRDEPLOY; tar xf -)
+                  fi
+
+                  case "$CFILE"
+                  in
+                          *.snapshot*) TYPENAME="AnalyticSnapshot";;
+                          *.cls*) TYPENAME="ApexClass";;
+                          *.component*) TYPENAME="ApexComponent";;
+                          *.page*) TYPENAME="ApexPage";;
+                          *.trigger*) TYPENAME="ApexTrigger";;
+                          *.approvalProcess*) TYPENAME="ApprovalProcess";;
+                          *.assignmentRules*) TYPENAME="AssignmentRules";;
+                          */aura/*) TYPENAME="AuraDefinitionBundle";;
+                          *.autoResponseRules*) TYPENAME="AutoResponseRules";;
+                          *.community*) TYPENAME="Community";;
+                          */applications*.app*) TYPENAME="CustomApplication";;
+                          *.customApplicationComponent*) TYPENAME="CustomApplicationComponent";;
+                          *.labels*) TYPENAME="CustomLabels";;
+                          *.md*) TYPENAME="CustomMetadata";;
+                          #*/objects/*__*__c.object*) TYPENAME="UNKNOWN TYPE" # We don't want objects from managed packages to be deployed;;
+                          */objects*.object*) TYPENAME="CustomObject";;
+                          *.objectTranslation*) TYPENAME="CustomObjectTranslation";;
+                          *.weblink*) TYPENAME="CustomPageWebLink";;
+                          *.customPermission*) TYPENAME="CustomPermission";;
+                          *.tab*) TYPENAME="CustomTab";;
+                          */documents/*.*) TYPENAME="Document";;
+                          *.email*) TYPENAME="EmailTemplate";;
+                          */email/*-meta.xml) TYPENAME="EmailTemplate";;
+                          *.escalationRules*) TYPENAME="EscalationRules";;
+                          *.globalValueSet*) TYPENAME="GlobalValueSet";;
+                          *.globalValueSetTranslation*) TYPENAME="GlobalValueSetTranslation";;
+                          *.group*) TYPENAME="Group";;
+                          *.homePageComponent*) TYPENAME="HomePageComponent";;
+                          *.homePageLayout*) TYPENAME="HomePageLayout";;
+                          *.layout*) TYPENAME="Layout";;
+                          *.letter*) TYPENAME="Letterhead";;
+                          *.permissionset*) TYPENAME="PermissionSet";;
+                          *.cachePartition*) TYPENAME="PlatformCachePartition";;
+                          *.profile*) TYPENAME="Profile";;
+                          *.reportType*) TYPENAME="ReportType";;
+                          *.role*) TYPENAME="Role";;
+                          *OrgPreference.settings*) TYPENAME="UNKNOWN TYPE";;
+                          *.settings*) TYPENAME="Settings";;
+                          */standardValueSets*.standardValueSet*) TYPENAME="StandardValueSet";;
+                          *.standardValueSetTranslation*) TYPENAME="StandardValueSetTranslation";;
+                          *.resource*) TYPENAME="StaticResource";;
+                          *.translation*) TYPENAME="Translations";;
+                          *.workflow*) TYPENAME="Workflow";;
+                          *) TYPENAME="UNKNOWN TYPE";;
+                  esac
+                  echo $TYPENAME
+                  if [[ "$TYPENAME" != "UNKNOWN TYPE" ]]
+                  then
+                          
+                          case "$CFILE"
+                          in
+                                  src/email/*)  ENTITY="${CFILE#src/email/}";;
+                                  src/documents/*)  ENTITY="${CFILE#src/documents/}";;
+                                  src/aura/*)  ENTITY="${CFILE#src/aura/}" ENTITY="${ENTITY%/*}";;
+                                  *) ENTITY=$(basename "$CFILE");;
+                          esac
+                          
+                          if [[ $ENTITY == *"-meta.xml" ]]
+                          then
+                                  ENTITY="${ENTITY%%.*}"
+                                  ENTITY="${ENTITY%-meta*}"
+                          else
+                                  ENTITY="${ENTITY%.*}"
+                          fi
+                          
+                          echo TypeName $TYPENAME
+                          echo Entity $ENTITY
+                          c="${TYPENAME}_${ENTITY}"
+                          
+                          cd /home/runner/work/cicd/cicd/src
+                          echo "" >> processedItems.txt
+                          pwd
+                          if [ ! -z $(grep "$c" processedItems.txt) ];
+                            then
+                              echo  found
+                            else
+                              echo not found
+                              if grep -Fq "&amp;amp;lt;name&amp;amp;gt;$TYPENAME&amp;amp;lt;/name&amp;amp;gt;" package.xml
+                              then
+                                      xmlstarlet ed -L -s "/Package/types[name='$TYPENAME']" -t elem -n members -v "$ENTITY" package.xml
+                                      echo if6
+                              else
+                                      echo if7
+                                      xmlstarlet ed -L -s /Package -t elem -n types -v "" package.xml
+                                      xmlstarlet ed -L -s '/Package/types[not(*)]' -t elem -n name -v "$TYPENAME" package.xml
+                                      xmlstarlet ed -L -s "/Package/types[name='$TYPENAME']" -t elem -n members -v "$ENTITY" package.xml
+                              fi
+                              if [[ "$TYPENAME" == "ApexClass" && $ENTITY != *"-meta.xml" ]]
+                              then
+                                      echo copying class
+                                      cp /home/runner/work/cicd/cicd/force-app/main/default/classes/"$ENTITY".cls /home/runner/work/cicd/cicd/pmdClass
+                              fi
+                          fi
+                            
+                          echo "${c}" >> processedItems.txt
+                          echo ======Processed Item=====
+                          cat processedItems.txt
+                          echo ======Processed Item End=====
+                         
+                                  
+                          
+                  fi
+          done
+          cd /home/runner/work/cicd/cicd/src
+          echo Cleaning up Package.xml
+          xmlstarlet ed -L -i /Package -t attr -n xmlns -v "http://soap.sforce.com/2006/04/metadata" package.xml
+          sed '$i<version>52.0</version>' package.xml > finalpackage.xml
+          cat finalpackage.xml
+          cd /home/runner/work/cicd/cicd/pmd-bin-6.36.0/bin          
+          bash run.sh pmd -d /home/runner/work/cicd/cicd/pmdClass -R /home/runner/work/cicd/cicd/pmd-bin-6.36.0/lib/ruleset.xml -f text -reportfile /home/runner/work/cicd/cicd/pmdClass/report39.txt -failOnViolation false 
+          sendemail -l email.log -f "fraternizecompany@gmail.com" -u "PMD Results" -t "akshay.shar2019@gmail.com" -s "smtp.gmail.com:587" -o tls=yes -xu "fraternizecompany@gmail.com" -xp "kwldmaxyodshqsdl" -o message-file="/home/runner/work/cicd/cicd/pmdClass/report39.txt"
+          cd /home/runner/work/cicd/cicd/pmdClass
+          cat report39.txt
+      - uses: actions/checkout@v2
+        
+        
+      - name: Calculating Diffs
+        shell: bash
+        run: |
+          sudo apt-get update
+          git fetch origin main
+          git diff --name-only origin/main..HEAD 
+      - name: Install Salesforce CLI
+        run: |
+          echo ${{github.event.pull_request.head.ref}}
+          #echo ${BRANCH_NAME}
+          npm install sfdx-cli
+          node_modules/sfdx-cli/bin/run --version
+          node_modules/sfdx-cli/bin/run plugins --core
+      - name: Authenticating Target Org
+        run: |
+          echo "${SALESFORCE_JWT_SECRET_KEY}" > server.key
+          node_modules/sfdx-cli/bin/run force:auth:jwt:grant --clientid ${{ secrets.SALESFORCE_CONSUMER_KEY }} --jwtkeyfile server.key --username ${{ secrets.SALESFORCE_DEVHUB_USERNAME}} --setdefaultdevhubusername -a devhub
+        env:
+          SALESFORCE_JWT_SECRET_KEY: ${{ secrets.SALESFORCE_JWT_SECRET_KEY }}
+     
+      - name: Validating Deployment
+        shell: bash
+        run: |
+          sudo apt-get update
+          #git fetch origin main
+          #git diff --name-only origin/main..HEAD
+          echo ${{github.event.pull_request.head.ref}}
+          echo y | node_modules/sfdx-cli/bin/run plugins:install sfdx-git-delta
+          
+          #git fetch --all
+          #git checkout US12345
+          node_modules/sfdx-cli/bin/run sgd:source:delta --to HEAD --from origin/main --output "."
+          pwd
+          ls -a
+          cd package
+          cat package.xml
+          cd ..
+          echo creating deployment peckage
+          node_modules/sfdx-cli/bin/run force:source:convert --manifest=/home/runner/work/cicd/cicd/package/package.xml --outputdir=convert
+          ls -a
+          cd convert
+          ls -a
+          echo FINAL Package For Validating Deployment
+          cat package.xml
+          
+          echo Performing Test deployment noww
+         
+          ../node_modules/sfdx-cli/bin/run force:source:deploy -x /home/runner/work/cicd/cicd/convert/package.xml -u ${{ secrets.SALESFORCE_DEVHUB_USERNAME}}  --checkonly
+          
+          #node_modules/sfdx-cli/bin/run force:source:deploy -x /home/runner/work/cicd/cicd/src/finalpackage.xml -u ${{ secrets.SALESFORCE_DEVHUB_USERNAME}} --checkonly > deploymentCheckResult.txt
+          #sendemail -l email.log -f "fraternizecompany@gmail.com" -u "Deployment Validation Results" -t "akshay.shar2019@gmail.com" -s "smtp.gmail.com:587" -o tls=yes -xu "fraternizecompany@gmail.com" -xp "kwldmaxyodshqsdl" -o message-file="/home/runner/work/cicd/cicd/deploymentCheckResult.txt"
+          #mail -s 'Deployment Report' akshay.shar2021@gmail.com < deploymentCheckResult.txt
+          #cat deploymentCheckResult.txt | mail -s "Deployment Result" akshay.shar2021@gmail.com -a deploymentCheckResult.txt
+          #pmd -language apex -dir /home/runner/work/cicd/cicd/pmdClass -R category/apex/design.xml -rulesets /home/runner/work/cicd/cicd/pmd-bin-6.36.0/lib/ruleset.xml -f text -reportfile /home/runner/work/cicd/cicd/pmdClass/report39.txt
+          #pmd -d /home/runner/work/cicd/cicd/pmdClass -R category/apex/design.xml -f text -reportfile /home/runner/work/cicd/cicd/pmdClass/report39.txt
+          #pmd -language apex -d /home/runner/work/cicd/cicd/pmdClass -f text -R /home/runner/work/cicd/cicd/pmd-bin-6.36.0/lib/ruleset.xml -reportfile /home/runner/work/cicd/cicd/pmdClass/report39.txt
+          #sudo bash run.sh pmd -d /home/runner/work/cicd/cicd/pmdClass -f text -R /home/runner/work/cicd/cicd/pmd-bin-6.36.0/lib/ruleset.xml -reportfile /home/runner/work/cicd/cicd/pmdClass/report39.txt
+        
+          
+
